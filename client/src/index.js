@@ -1,14 +1,17 @@
+
 import React from 'react';
 import ReactDOM from 'react-dom';
-import './index.css';
+import "./index.css";
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 import { StyledEngineProvider } from "@mui/material/styles";
+import Login from './Login';
+import CApp from "./commentApp";
 
 ReactDOM.render(
-    <StyledEngineProvider injectFirst>
-        <App />
-    </StyledEngineProvider>,
+    <React.StrictMode>
+      <CApp />
+      </React.StrictMode>,
   document.getElementById('root')
 );
 
