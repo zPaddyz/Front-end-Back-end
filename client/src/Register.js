@@ -1,7 +1,8 @@
 import Paper from '@mui/material/Paper';
-import Plannerino from "./img/Plannerino.png"
+import Plannerino from "./Plannerino.png"
 import {Button, Grid, TextField} from "@mui/material";
 import {makeStyles} from "@mui/styles";
+import { Link } from 'react-router-dom';
 
 const useStyles = makeStyles({
     paperStyle: {
@@ -50,7 +51,9 @@ const Register = () => {
                         <TextField label="Confirm password" variant="standard" type="password" style={{marginTop: "10px"}}/>
                     </Grid>
                     <Grid item xs={12}>
-                        <Button variant="contained" className={classes.buttonStyle}>Get planning</Button>
+                        <Link to="/home" style={{textDecoration: "none"}}>
+                            <Button variant="contained" className={classes.buttonStyle}>Get planning</Button>
+                        </Link>
                     </Grid>
                 </Grid>
             </Paper>
