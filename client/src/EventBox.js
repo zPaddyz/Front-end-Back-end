@@ -22,7 +22,7 @@ function displayItem(get){
     const title = JSON.parse(localStorage.getItem(get)).title;
     const date = JSON.parse(localStorage.getItem(get)).date;
     const picture = JSON.parse(localStorage.getItem(get)).picture;
-    const color = JSON.parse(localStorage.getItem(get)).title;
+    const color = JSON.parse(localStorage.getItem(get)).color;
         return(
             <div className="eventBoxes">
                 <button className="myButton" style={{backgroundColor: color}}>

@@ -17,11 +17,11 @@ app.get("/api", (req, res) => {
 
 app.get("/apis", (req, res) => {
     res.set('Access-Control-Allow-Origin', 'http://localhost:3000');
-    res.json({ title: "Bryllupsdag",picture : "city", date : "14/4/2022"});
+    res.json({ title: "Bryllupsdag",picture : "city", date : "14/4/2022", color :"#CCFFE5"});
   });
   app.get("/apitest", (req, res) => {
     res.set('Access-Control-Allow-Origin', 'http://localhost:3000');
-    res.json({ title: "Test",picture : "Valley", date : "22/7/2029"});
+    res.json({ title: "Test",picture : "Valley", date : "22/7/2029", color :"#F6E2DF"});
   });
 
   app.get("/test", (req, res) => {
@@ -35,7 +35,7 @@ app.get("/apis", (req, res) => {
       firstName: req.body.firstName,
       lastName: req.body.lastName
     }
-    res.json( user);
+    res.json([{user}]);
   });
 
 sequelize.sync({}).then(() => {
