@@ -10,7 +10,7 @@ import CApp from "./commentApp";
 
 ReactDOM.render(
     <React.StrictMode>
-      <CApp />
+      <App />
       </React.StrictMode>,
   document.getElementById('root')
 );

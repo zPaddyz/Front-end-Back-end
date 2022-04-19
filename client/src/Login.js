@@ -1,14 +1,15 @@
 import Paper from '@mui/material/Paper';
 import Plannerino from "./Plannerino.png"
-import {Button, Grid, TextField} from "@mui/material";
+import { Button, Grid, TextField } from "@mui/material";
 import { makeStyles } from '@mui/styles';
 import { Link } from 'react-router-dom';
+import React from "react";
 
 const useStyles = makeStyles({
     paperStyle: {
         margin: "80px auto",
         backgroundColor: "#F6EFDF",
-        width:'400px',
+        width: '400px',
         height: "500px",
         borderRadius: "30px",
         flexDirection: "column"
@@ -30,28 +31,62 @@ const useStyles = makeStyles({
     }
 });
 
+async function checkLogin(Email, Password) {
+    var success = false;
+    var url = "/user/get/"+Email;
+    var data;
+    try {
+        let response = await fetch("http://localhost:3001/user/get/"+Email+"/"+Password)
+
+        // Check your response for error this may not be response.error
+        if (response.error) {
+            // Handle error
+            alert(response.error)
+        } else {
+            data = await response.json();
+        }
+    } catch (err) {
+        //failed attempts
+        //alert(err)
+    }
+    console.log(data);
+
+    if(Password === data[0]){
+
+        success = true
+        
+        if (success) {
+            alert("Login succesfuld");
+            window.location.replace("/Home");
+        } else {
+            alert("Incorrect information");
+        }
+    }
+}
+
 const Login = () => {
+    var emailRef = React.useRef('');
+    var passwordRef = React.useRef('');
     const classes = useStyles();
-    return(
+    return (
         <div>
             <Paper elevation={24} className={classes.paperStyle}>
-                <img src={Plannerino} alt={"bibo"} className={classes.imageStyle}/>
+                <img src={Plannerino} alt={"bibo"} className={classes.imageStyle} />
                 <Grid>
                     <Grid item xs={12}>
-                        <TextField label="Username" variant="standard"/>
+                        <TextField inputRef={ref => { emailRef = ref; }} label="Email" variant="standard" />
                     </Grid>
                     <Grid item xs={12}>
-                        <TextField label="Password" type="password" variant="standard" style={{marginTop: "10px"}}/>
+                        <TextField inputRef={ref => { passwordRef = ref; }} label="Password" type="password" variant="standard" style={{ marginTop: "10px" }} />
                     </Grid>
                     <Grid item xs={12}>
-                        <Link to="/home" style={{textDecoration: "none"}}>
-                            <Button variant="contained" className={classes.buttonStyle}>Login</Button>
-                        </Link>
+                            <Button onClick={() => checkLogin(emailRef.value,passwordRef.value)} variant="contained" className={classes.buttonStyle}>Login</Button>
                     </Grid>
                     <Grid item xs={12}>
                         <Link to="/register" style={{textDecoration: "none"}}>
-                            <Button variant="contained" className={classes.buttonStyle} style={{marginTop: "10px"}}>Create an account</Button>
+                            <Button variant="contained" className={classes.buttonStyle} style={{ marginTop: "10px" }}>Create an account</Button>
                         </Link>
+                        
                     </Grid>
                 </Grid>
             </Paper>

@@ -68,3 +68,14 @@ app.delete('/user/:id', (req, res) => {
   const id = req.params.id
   User.destroy({where: {id:id}}).then(()=> res.json("user deleted"))
 })
+
+app.get('/user/get/:email/:inputPass', (req, res) => {
+  var password;
+  res.set('Access-Control-Allow-Origin', "*");
+  const email = req.params.email
+  const inputPass = req.params.inputPass
+    User.findOne({where: {email:email},and : {password:inputPass}}).then((user) => {
+        password = user.dataValues.password;
+        res.json([password]);
+    })
+})
