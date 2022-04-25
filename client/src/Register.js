@@ -53,7 +53,8 @@ function saveData(Firstname, LastName, Email, Password, ConfirmPassword) {
                 })
             };
 
-            fetch('http://130.225.170.83/user', requestOptions)
+            //fetch('http://130.225.170.83/user', requestOptions)
+            fetch('/user', requestOptions)
                 .then(response => response.json())
                 .then(data => this.setState({ postId: data.id }))
             success = true
