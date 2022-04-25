@@ -16,11 +16,11 @@ app.get("/api", (req, res) => {
 });
 
 app.get("/apis", (req, res) => {
-    res.set('Access-Control-Allow-Origin', 'http://localhost:3000');
+    res.set('Access-Control-Allow-Origin', '*');
     res.json({ title: "Bryllupsdag",picture : "city", date : "14/4/2022", color :"#CCFFE5"});
   });
   app.get("/apitest", (req, res) => {
-    res.set('Access-Control-Allow-Origin', 'http://localhost:3000');
+    res.set('Access-Control-Allow-Origin', '*');
     res.json({ title: "Test",picture : "Valley", date : "22/7/2029", color :"#F6E2DF"});
   });
 
@@ -54,7 +54,8 @@ const user = User.create({
 
 //User.findOne({ where: { id: "d70b7455-8617-468a-bc8a-00f92ba4d05e"}}).then((user) => {console.log(user.dataValues.firstName);})
 
-app.post('/user', (req, res) => {
+app.post('http://130.225.170.83/user', (req, res) => {
+  res.set('Access-Control-Allow-Origin', "*");
   const user = {
     email: req.body.email,
     firstName: req.body.firstName,
@@ -69,7 +70,7 @@ app.delete('/user/:id', (req, res) => {
   User.destroy({where: {id:id}}).then(()=> res.json("user deleted"))
 })
 
-app.get('/user/get/:email/:inputPass', (req, res) => {
+app.get('http://130.225.170.83/user/get/:email/:inputPass', (req, res) => {
   var succes = false;
   res.set('Access-Control-Allow-Origin', "*");
   const email = req.params.email
