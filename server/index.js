@@ -70,12 +70,22 @@ app.delete('/user/:id', (req, res) => {
 })
 
 app.get('/user/get/:email/:inputPass', (req, res) => {
-  var password;
+  var succes = false;
   res.set('Access-Control-Allow-Origin', "*");
   const email = req.params.email
   const inputPass = req.params.inputPass
+
     User.findOne({where: {email:email},and : {password:inputPass}}).then((user) => {
-        password = user.dataValues.password;
-        res.json([password]);
-    })
+      if(inputPass=== user.dataValues.password){
+          succes = true;
+        } else {
+          succes = false;
+        }
+        res.json([succes]);
+    }).catch(err => {
+      console.log("Specified email is not found")
+      res.json([succes]);
+    }
+    );
+
 })

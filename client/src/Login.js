@@ -33,7 +33,7 @@ const useStyles = makeStyles({
 
 async function checkLogin(Email, Password) {
     var success = false;
-    var url = "/user/get/"+Email;
+    //var url = "/user/get/"+Email;
     var data;
     try {
         let response = await fetch("http://localhost:3001/user/get/"+Email+"/"+Password)
@@ -49,19 +49,17 @@ async function checkLogin(Email, Password) {
         //failed attempts
         //alert(err)
     }
-    console.log(data);
 
-    if(Password === data[0]){
-
+    if(data[0] === true){
         success = true
-        
+    }
         if (success) {
             alert("Login succesfuld");
             window.location.replace("/Home");
         } else {
             alert("Incorrect information");
         }
-    }
+    
 }
 
 const Login = () => {
