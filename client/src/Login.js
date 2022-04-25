@@ -36,7 +36,7 @@ async function checkLogin(Email, Password) {
     //var url = "/user/get/"+Email;
     var data;
     try {
-        let response = await fetch("http://localhost:3001/user/get/"+Email+"/"+Password)
+        let response = await fetch("http://130.225.170.83/user/get/"+Email+"/"+Password)
 
         // Check your response for error this may not be response.error
         if (response.error) {

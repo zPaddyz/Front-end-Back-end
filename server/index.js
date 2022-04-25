@@ -54,8 +54,7 @@ const user = User.create({
 
 //User.findOne({ where: { id: "d70b7455-8617-468a-bc8a-00f92ba4d05e"}}).then((user) => {console.log(user.dataValues.firstName);})
 
-app.post('http://130.225.170.83/user', (req, res) => {
-  res.set('Access-Control-Allow-Origin', "*");
+app.post('/user', (req, res) => {
   const user = {
     email: req.body.email,
     firstName: req.body.firstName,
@@ -70,7 +69,7 @@ app.delete('/user/:id', (req, res) => {
   User.destroy({where: {id:id}}).then(()=> res.json("user deleted"))
 })
 
-app.get('http://130.225.170.83/user/get/:email/:inputPass', (req, res) => {
+app.get('/user/get/:email/:inputPass', (req, res) => {
   var succes = false;
   res.set('Access-Control-Allow-Origin', "*");
   const email = req.params.email
