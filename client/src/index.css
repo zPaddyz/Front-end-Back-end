@@ -1,3 +1,6 @@
+.App{
+  text-align: left;
+}
 .comments {
   margin-top: 20px;
 }
@@ -5,35 +8,53 @@
 .comments-title {
   font-size: 30px;
   margin-bottom: 20px;
+  text-align: left;
 }
 
 .comments-container {
   margin-top: 40px;
+  text-align: left;
 }
 
 .comment-form-title {
   font-size: 22px;
+  text-align: left;
 }
 
 .comment-form-textarea {
-  width: 100%;
-  height: 80px;
-  margin-bottom: 8px;
-  margin-top: 8px;
-  border: 1px solid rgb(107, 114, 12);
+  width: 50%;
+  height: 60px;
+  margin-bottom: 10px;
+  margin-top: 10px;
+  border: 2px solid rgb(46, 5, 5);
+}
+
+.comment-container {
+  height: 50px;
+  position: relative;
+  color: white;
+}
+.comment-button-center{
+  margin: 0;
+  position: absolute;
+  top: 5%;
+  left: 16%;
+  
+
 }
 
 .comment-form-button {
-  font-size: 16px;
+  font-size: 19px;
   padding: 8px 16px;
   background: rgb(59, 130, 246);
-  border-radius: 8px;
+  border-radius: 10px;
   color: white;
+
 }
 
 .comment-form-button:hover:enabled {
   cursor: pointer;
-  background: rgb(37, 99, 235);
+  background: rgb(31, 185, 51);
 }
 
 .comment-form-button:disabled {
@@ -47,7 +68,7 @@
 
 .comment {
   display: flex;
-  margin-bottom: 28px;
+  margin-bottom: 19px;
 }
 
 .comment-image-container {
@@ -73,7 +94,7 @@
 }
 
 .comment-text {
-  font-size: 18px;
+  font-size: 19px;
 }
 
 .comment-actions {
@@ -90,8 +111,4 @@
 
 .comment-action:hover {
   text-decoration: underline;
-}
-
-.replies {
-  margin-top: 20px;
 }

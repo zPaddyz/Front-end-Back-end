@@ -3,7 +3,6 @@ import Comments from './comments/Comments'
 const commentApp = () => {
     return (
         <div>
-            <h1> Hello </h1>
             <Comments currentUserId="1"/> 
         </div>
     );

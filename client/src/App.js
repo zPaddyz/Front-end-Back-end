@@ -5,6 +5,8 @@ import Login from "./Login";
 import {BrowserRouter as Router, Route, Switch} from 'react-router-dom';
 import Register from "./Register";
 import Home from "./Home";
+import CApp from "./commentApp";
+
 
 function App() {
   const [data, setData] = React.useState(null);
@@ -44,6 +46,9 @@ function App() {
         </Route>
         <Route exact path="/home">
           <Home/>
+        </Route >
+        <Route exact path="/comment">
+          <CApp/>
         </Route>
       </Switch>
     </div>
