@@ -36,21 +36,30 @@ async function checkLogin(Email, Password) {
     //var url = "/user/get/"+Email;
     var data;
     try {
-        let response = await fetch("http://localhost:3001/user/get/"+Email+"/"+Password)
+        let response = await fetch("/user/get/"+Email+"/"+Password,{
+            method: 'GET'
+        })
         //let response = await fetch("http://130.225.170.83//user/get/"+Email+"/"+Password)
         // Check your response for error this may not be response.error
         if (response.error) {
             // Handle error
             alert(response.error)
         } else {
-            data = await response.json();
+            //data = await response.json();
+            data = response.status;
+            
         }
     } catch (err) {
+        console.log("failed");
+        console.log(err);
         //failed attempts
         //alert(err)
     }
-
-    if(data[0] === true){
+    console.log(data)
+    /*if(data[0] === true){
+        success = true
+    }*/
+    if(data == "400"){
         success = true
     }
         if (success) {
@@ -72,13 +81,13 @@ const Login = () => {
                 <img src={Plannerino} alt={"bibo"} className={classes.imageStyle} />
                 <Grid>
                     <Grid item xs={12}>
-                        <TextField inputRef={ref => { emailRef = ref; }} label="Email" variant="standard" />
+                        <TextField id="1" inputRef={ref => { emailRef = ref; }} label="Email" variant="standard" />
                     </Grid>
                     <Grid item xs={12}>
-                        <TextField inputRef={ref => { passwordRef = ref; }} label="Password" type="password" variant="standard" style={{ marginTop: "10px" }} />
+                        <TextField id="2" inputRef={ref => { passwordRef = ref; }} label="Password" type="password" variant="standard" style={{ marginTop: "10px" }} />
                     </Grid>
                     <Grid item xs={12}>
-                            <Button onClick={() => checkLogin(emailRef.value,passwordRef.value)} variant="contained" className={classes.buttonStyle}>Login</Button>
+                            <Button onClick={() => checkLogin(document.getElementById("1").value,document.getElementById("2").value)} variant="contained" className={classes.buttonStyle}>Login</Button>
                     </Grid>
                     <Grid item xs={12}>
                         <Link to="/register" style={{textDecoration: "none"}}>

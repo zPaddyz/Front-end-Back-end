@@ -32,7 +32,7 @@ const useStyles = makeStyles({
     }
 });
 
-function saveData(Firstname, LastName, Email, Password, ConfirmPassword) {
+async function saveData(Firstname, LastName, Email, Password, ConfirmPassword) {
     var success = false;
     // email regex = https://www.w3resource.com/javascript/form/email-validation.php
     if (Firstname !== "" && (/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(Email)) && Password !== "" && ConfirmPassword !== "") {
@@ -42,34 +42,35 @@ function saveData(Firstname, LastName, Email, Password, ConfirmPassword) {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
-                    'Authorization': 'Bearer my-token',
-                    'My-Custom-Header': 'foobar'
+                    'Authorization': 'Bearer my-token'
+                    //'My-Custom-Header': 'foobar'
                 },
                 body: JSON.stringify({
-                    firstName: Firstname,
-                    lastName: LastName,
-                    email: Email,
-                    password: Password,
+                    "firstName": Firstname,
+                    "lastName": LastName,
+                    "email": Email,
+                    "password": Password
                 })
-            };
+            }
 
             //fetch('http://130.225.170.83/user', requestOptions)
-            fetch('/user', requestOptions)
-                .then(response => response.json())
-                .then(data => this.setState({ postId: data.id }))
-            success = true
+            await fetch('/user', requestOptions)
+                //.then(response => response.json())
+                //.then(data => this.setState({ postId: data.id }))
+                //.then(success = true)
+
+           
         }
     } else success = false;
 
     if (success) {
         alert("User created");
-        window.location.replace("/");
+        //window.location.replace("/");
 
     } else {
         alert("User not created! Please make sure all fields are filled.");
     }
 }
-
 const Register = () => {
     var firstNameRef = React.useRef('');
     var lastNameRef = React.useRef('');
@@ -85,20 +86,24 @@ const Register = () => {
                 <img src={Plannerino} alt={"bibo"} className={classes.imageStyle} />
                 <Grid>
                     <Grid item xs={12}>
-                        <TextField inputRef={ref => { firstNameRef = ref; }} label="Username" variant="standard" />
+                        <TextField id="1" inputRef={ref => { firstNameRef = ref; }} label="Username" variant="standard" />
                     </Grid>
                     <Grid item xs={12}>
-                        <TextField inputRef={ref => { emailRef = ref; }} label="E-mail" variant="standard" />
+                        <TextField id="2"inputRef={ref => { emailRef = ref; }} label="E-mail" variant="standard" />
                     </Grid>
                     <Grid item xs={12}>
-                        <TextField inputRef={ref => { passwordRef = ref; }} label="Password" variant="standard" type="password" style={{ marginTop: "10px" }} />
+                        <TextField id="3" inputRef={ref => { passwordRef = ref; }} label="Password" variant="standard" type="password" style={{ marginTop: "10px" }} />
                     </Grid>
                     <Grid item xs={12}>
-                        <TextField inputRef={ref => { confirmPasswordRef = ref; }} label="Confirm password" variant="standard" type="password" style={{ marginTop: "10px" }} />
+                        <TextField id="4" inputRef={ref => { confirmPasswordRef = ref; }} label="Confirm password" variant="standard" type="password" style={{ marginTop: "10px" }} />
                     </Grid>
                     <Grid item xs={12}>
 
-                        <Button onClick={() => saveData(firstNameRef.value, firstNameRef.value, emailRef.value, passwordRef.value, confirmPasswordRef.value)} variant="contained" className={classes.buttonStyle}>Get planning</Button>
+                        <Button onClick={() => {
+                            saveData(document.getElementById("1").value, document.getElementById("1").value, document.getElementById("2").value, document.getElementById("3").value, document.getElementById("4").value,
+                            /*firstNameRef.value, firstNameRef.value, emailRef.value, passwordRef.value, confirmPasswordRef.value*/)
+                        }
+                        } variant="contained" className={classes.buttonStyle}>Get planning</Button>
 
                     </Grid>
                 </Grid>

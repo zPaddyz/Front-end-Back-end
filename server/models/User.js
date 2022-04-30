@@ -28,7 +28,7 @@ const User = sequelize.define("user", {
     password: {
         type: Sequelize.TEXT,
         allowNull: false
-    },
+    }
 
    /* profilePicture: {
         type: Sequelize.TEXT,
