@@ -15,18 +15,12 @@ const reactBuild = path.join(__dirname.substring(0,__dirname.length-6), "client"
 
 // calling body-parser to handle the Request Object from POST requests
 var bodyParser = require('body-parser');
+const { send } = require("express/lib/response");
 // parse application/json, basically parse incoming Request Object as a JSON Object 
 app.use(bodyParser.json());
-// parse application/x-www-form-urlencoded, basically can only parse incoming Request Object if strings or arrays
-//app.use(bodyParser.urlencoded({ extended: false }));
-// combines the 2 above, then you can parse incoming Request Object if object, with nested objects, or generally any type.
-//app.use(bodyParser.urlencoded({ extended: true }));
 
+//app.use(express.static(path.join(__dirname.substring(0,__dirname.length-6), "client", "public")));
 app.use(express.static(reactBuild));
-
-app.get("/api", (req, res) => {
-  res.json({ message: "Hello from patrick!"});
-});
 
 app.get("/apis", (req, res) => {
   res.set('Access-Control-Allow-Origin', '*');
@@ -42,14 +36,6 @@ app.get("/test", (req, res) => {
   res.json([{ firstName: "Tester",lastName : "Valley"}]);
 });
 
-app.post("/test", (req,res) => {
-  res.set('Access-Control-Allow-Origin', '*');
-  const user ={
-    firstName: req.body.firstName,
-    lastName: req.body.lastName
-  }
-  res.json([{user}]);
-});
 
 
 app.get("*", async(req,res) =>{
@@ -85,16 +71,47 @@ app.post('/user', (req, res) => {
 
 })
 
+app.post('/user/get', (req, res) => {
+  const user = {
+    email: req.body.email,
+    password: req.body.password
+  }
+  let foundUser = matchUser(user.email).then(result =>{
+    if(result !== null) {
+      if(result.password == user.password){
+        res.status(204).send('VIRKER');
+      } else {
+        res.status(400).send('VIRKER IKKE');
+      }
+    } else {
+      res.status(401).send('VIRKER IKKE');
+    }
+})
+})
+
+async function matchUser(Email){
+  let foundUser = await User.findOne({where: {email:Email}});
+  return foundUser;
+}
+
+
+
+
+
 app.delete('/user/:id', (req, res) => {
   const id = req.params.id
   User.destroy({where: {id:id}}).then(()=> res.json("user deleted"))
 })
 
-app.get('/user/get/:email/:inputPass', (req, res) => {
+/*app.get('/user/get/:email/:inputPass', (req, res) => {
   var succes = false;
   //res.set('Access-Control-Allow-Origin', "*");
   const email = req.params.email
   const inputPass = req.params.inputPass
+
+  console.log(email + " = email")
+  console.log(inputPass + " = inputPass")
+
 
   User.findOne({where: {email:email},and : {password:inputPass}}).then((user) => {
     if(inputPass=== user.dataValues.password){
@@ -116,11 +133,13 @@ app.get('/user/get/:email/:inputPass', (req, res) => {
     console.log("virker ikke!!")
     res.sendStatus(404)
   }
+  send
   /*.catch(err => {
     console.log(err)
     console.log("Specified email is not found")
     //res.send(succes);
   }
-  );*/
+  );
   
 })
+*/
