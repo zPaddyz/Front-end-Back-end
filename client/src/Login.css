@@ -1,0 +1,25 @@
+.paperStyle {
+    margin: 80px auto;
+    background-color: #F6EFDF;
+    width: 400px;
+    height: 500px;
+    border-radius: 30px;
+    flex-direction: column;
+    text-align: center;
+}
+.imageStyle {
+    height: 40px;
+    width: 350px;
+    padding: 20px 30px;
+    margin-top: 100px;
+}
+.buttonStyle {
+    background-color: #6BC4A2;
+    border-radius: 20px;
+    width: 190px;
+    margin-top: 50px;
+}
+
+.buttonStyle:hover {
+    background-color: #4ca183;
+}

@@ -4,6 +4,7 @@ import {Button, Grid, TextField } from "@mui/material";
 import { makeStyles } from "@mui/styles";
 //import { Link } from 'react-router-dom';
 import React from "react";
+import { textAlign } from '@mui/system';
 
 
 const useStyles = makeStyles({
@@ -13,7 +14,8 @@ const useStyles = makeStyles({
         width: '400px',
         height: "500px",
         borderRadius: "30px",
-        flexDirection: "column"
+        flexDirection: "column",
+        textAlign: "center"
     },
     imageStyle: {
         height: "40px",
@@ -33,17 +35,16 @@ const useStyles = makeStyles({
 });
 
 async function saveData(Firstname, LastName, Email, Password, ConfirmPassword) {
-    var success = false;
+    var failedAttempt = false;
+    //TODO: Ryk til backend
     // email regex = https://www.w3resource.com/javascript/form/email-validation.php
     if (Firstname !== "" && (/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(Email)) && Password !== "" && ConfirmPassword !== "") {
         if (Password === ConfirmPassword) {
-            // POST request using fetch with set headers
             const requestOptions = {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
-                    'Authorization': 'Bearer my-token'
-                    //'My-Custom-Header': 'foobar'
+                    'Authorization': 'Bearer my-token'  
                 },
                 body: JSON.stringify({
                     "firstName": Firstname,
@@ -53,31 +54,29 @@ async function saveData(Firstname, LastName, Email, Password, ConfirmPassword) {
                 })
             }
 
-            //fetch('http://130.225.170.83/user', requestOptions)
             await fetch('/user', requestOptions)
-                //.then(response => response.json())
-                //.then(data => this.setState({ postId: data.id }))
-                //.then(success = true)
+            .then( (response) => { 
+                console.log(response)
+                if (response.status === 204) {
+                    alert("User creation succesfuld! \n Please log in.");
+                    window.location.replace("/");
+                } else {
+                    failedAttempt = true;
+                }
+                //do something awesome that makes the world a better place
+             })  
 
            
         }
-    } else success = false;
-
-    if (success) {
-        alert("User created");
-        //window.location.replace("/");
-
     } else {
-        alert("User not created! Please make sure all fields are filled.");
+        failedAttempt = true;
     }
+        if(failedAttempt === true) {
+            alert("User not created! Please make sure all fields are filled out correctly.");
+        }
+
 }
 const Register = () => {
-    var firstNameRef = React.useRef('');
-    var lastNameRef = React.useRef('');
-    var emailRef = React.useRef('');
-    var passwordRef = React.useRef('');
-    var confirmPasswordRef = React.useRef('');
-
     const classes = useStyles();
     return (
 
@@ -86,16 +85,16 @@ const Register = () => {
                 <img src={Plannerino} alt={"bibo"} className={classes.imageStyle} />
                 <Grid>
                     <Grid item xs={12}>
-                        <TextField id="1" inputRef={ref => { firstNameRef = ref; }} label="Username" variant="standard" />
+                        <TextField id="1" label="Username" variant="standard" />
                     </Grid>
                     <Grid item xs={12}>
-                        <TextField id="2"inputRef={ref => { emailRef = ref; }} label="E-mail" variant="standard" />
+                        <TextField id="2" label="E-mail" variant="standard" />
                     </Grid>
                     <Grid item xs={12}>
-                        <TextField id="3" inputRef={ref => { passwordRef = ref; }} label="Password" variant="standard" type="password" style={{ marginTop: "10px" }} />
+                        <TextField id="3" label="Password" variant="standard" type="password" style={{ marginTop: "10px" }} />
                     </Grid>
                     <Grid item xs={12}>
-                        <TextField id="4" inputRef={ref => { confirmPasswordRef = ref; }} label="Confirm password" variant="standard" type="password" style={{ marginTop: "10px" }} />
+                        <TextField id="4" label="Confirm password" variant="standard" type="password" style={{ marginTop: "10px" }} />
                     </Grid>
                     <Grid item xs={12}>
 

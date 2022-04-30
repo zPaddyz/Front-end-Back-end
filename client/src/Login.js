@@ -1,11 +1,12 @@
 import Paper from '@mui/material/Paper';
 import Plannerino from "./Plannerino.png"
 import { Button, Grid, TextField } from "@mui/material";
-import { makeStyles } from '@mui/styles';
+import "./Login.css";
+//import { makeStyles } from '@mui/styles';
 import { Link } from 'react-router-dom';
 import React from "react";
 
-const useStyles = makeStyles({
+/*const useStyles = makeStyles({
     paperStyle: {
         margin: "80px auto",
         backgroundColor: "#F6EFDF",
@@ -29,29 +30,10 @@ const useStyles = makeStyles({
         width: "190px",
         marginTop: "50px"
     }
-});
-
-/*fetch("http://example.com/api/endpoint/", {
-  method: "post",
-  headers: {
-    'Accept': 'application/json',
-    'Content-Type': 'application/json'
-  },
-
-  //make sure to serialize your JSON body
-  body: JSON.stringify({
-    email: myName,
-    password: myPassword
-  })
-})
-.then( (response) => { 
-   //do something awesome that makes the world a better place
-});
-*/
+});*/
 
 async function checkLogin(Email, Password) {
     try {
-        
         const requestOptions = {
             method: 'POST',
             headers: {
@@ -65,8 +47,8 @@ async function checkLogin(Email, Password) {
             })
         }
 
-        //fetch('http://130.225.170.83/user', requestOptions)
-        await fetch('/user/get', requestOptions)
+        
+        await fetch('/users/get', requestOptions)
         .then( (response) => { 
             console.log(response)
             if (response.status === 204) {
@@ -87,26 +69,25 @@ async function checkLogin(Email, Password) {
 }
 
 const Login = () => {
-    var emailRef = React.useRef('');
-    var passwordRef = React.useRef('');
-    const classes = useStyles();
+    //const classes = useStyles();
     return (
         <div>
-            <Paper elevation={24} className={classes.paperStyle}>
-                <img src={Plannerino} alt={"bibo"} className={classes.imageStyle} />
+            <Paper elevation={24} className="paperStyle" style={{backgroundColor: "#F6EFDF", borderRadius: "30px"}}>
+                <img src={Plannerino} alt={"bibo"} className="imageStyle" />
                 <Grid>
                     <Grid item xs={12}>
-                        <TextField id="1" inputRef={ref => { emailRef = ref; }} label="Email" variant="standard" />
+                        <TextField id="1" label="Email" variant="standard" />
                     </Grid>
                     <Grid item xs={12}>
-                        <TextField id="2" inputRef={ref => { passwordRef = ref; }} label="Password" type="password" variant="standard" style={{ marginTop: "10px" }} />
+                        <TextField id="2" label="Password" type="password" variant="standard" style={{ marginTop: "10px" }} />
                     </Grid>
                     <Grid item xs={12}>
-                            <Button onClick={() => checkLogin(document.getElementById("1").value,document.getElementById("2").value)} variant="contained" className={classes.buttonStyle}>Login</Button>
+                            <Button onClick={() => checkLogin(document.getElementById("1").value,document.getElementById("2").value)} 
+                            variant="contained" className="buttonStyle" style={{backgroundColor: "#6BC4A2", marginTop: "25px", borderRadius: "30px" }}>Login</Button>
                     </Grid>
                     <Grid item xs={12}>
                         <Link to="/register" style={{textDecoration: "none"}}>
-                            <Button variant="contained" className={classes.buttonStyle} style={{ marginTop: "10px" }}>Create an account</Button>
+                            <Button variant="contained" className="buttonStyle" style={{backgroundColor: "#6BC4A2", marginTop: "20px", borderRadius: "30px" }}>Create an account</Button>
                         </Link>
                         
                     </Grid>

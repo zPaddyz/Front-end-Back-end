@@ -15,12 +15,12 @@ const reactBuild = path.join(__dirname.substring(0,__dirname.length-6), "client"
 
 // calling body-parser to handle the Request Object from POST requests
 var bodyParser = require('body-parser');
-const { send } = require("express/lib/response");
 // parse application/json, basically parse incoming Request Object as a JSON Object 
 app.use(bodyParser.json());
 
 //app.use(express.static(path.join(__dirname.substring(0,__dirname.length-6), "client", "public")));
 app.use(express.static(reactBuild));
+//app.use(express.static(path.join(__dirname.substring(0,__dirname.length-6),"client", "public")));
 
 app.get("/apis", (req, res) => {
   res.set('Access-Control-Allow-Origin', '*');
@@ -29,11 +29,6 @@ app.get("/apis", (req, res) => {
 app.get("/apitest", (req, res) => {
   res.set('Access-Control-Allow-Origin', '*');
   res.json({ title: "Test",picture : "Valley", date : "22/7/2029", color :"#F6E2DF"});
-});
-
-app.get("/test", (req, res) => {
-  res.set('Access-Control-Allow-Origin', '*');
-  res.json([{ firstName: "Tester",lastName : "Valley"}]);
 });
 
 
@@ -66,12 +61,10 @@ app.post('/user', (req, res) => {
     email: req.body.email,
     password: req.body.password
   }
-  User.create(user).then(user => res.json(user))
-  res.send({ succes: 'true' });
-
+  User.create(user).then(user => res.status(204).send(user))
 })
 
-app.post('/user/get', (req, res) => {
+app.post('/users/get', (req, res) => {
   const user = {
     email: req.body.email,
     password: req.body.password
@@ -94,52 +87,7 @@ async function matchUser(Email){
   return foundUser;
 }
 
-
-
-
-
 app.delete('/user/:id', (req, res) => {
   const id = req.params.id
   User.destroy({where: {id:id}}).then(()=> res.json("user deleted"))
 })
-
-/*app.get('/user/get/:email/:inputPass', (req, res) => {
-  var succes = false;
-  //res.set('Access-Control-Allow-Origin', "*");
-  const email = req.params.email
-  const inputPass = req.params.inputPass
-
-  console.log(email + " = email")
-  console.log(inputPass + " = inputPass")
-
-
-  User.findOne({where: {email:email},and : {password:inputPass}}).then((user) => {
-    if(inputPass=== user.dataValues.password){
-      succes = true;
-      console.log("virker")
-      res.status(400).send('Bad Request')
-    } else {
-      succes = false;
-      res.sendStatus(404)
-      console.log("virker ikke!!")
-    }
-    //res.send(succes);
-  })
-  if(succes) {
-    console.log("virker")
-    res.status(400).send('Bad Request')
-  }
-  else {
-    console.log("virker ikke!!")
-    res.sendStatus(404)
-  }
-  send
-  /*.catch(err => {
-    console.log(err)
-    console.log("Specified email is not found")
-    //res.send(succes);
-  }
-  );
-  
-})
-*/
