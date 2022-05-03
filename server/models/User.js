@@ -1,5 +1,7 @@
 const Sequelize = require('sequelize')
 const sequelize = require('../config/db')
+const Event = require('./Events')
+const Comment = require('./Comments')
 const User = sequelize.define("user", {
     id: {
         type: Sequelize.UUID,
@@ -35,6 +37,18 @@ const User = sequelize.define("user", {
         defaultValue: ""
     }*/
 });
+
+User.hasMany(Event, {onDelete: 'CASCADE'})
+User.hasMany(Comment, {onDelete: 'CASCADE'})
+
+Event.hasMany(Comment, {onDelete: 'CASCADE'})
+
+Comment.belongsTo(User)
+Comment.belongsTo(Event)
+
+
+Event.belongsTo(User, {as: 'eventHolder', foreignKey: "userId"})
+
 
 
 module.exports = User;

@@ -15,7 +15,7 @@ const Comments = ({currentUserId}) => {
     const deleteComment = (commentId) => {
         if (window.confirm("Are you sure?")){
             deleteCommentApi(commentId).then(() =>
-            {const updatedBackendComments = backendComments.filter(backendComment => backendComment.id != commentId);
+            {const updatedBackendComments = backendComments.filter(backendComment => backendComment.id !== commentId);
             setBackendComments(updatedBackendComments)})
         }
     }
