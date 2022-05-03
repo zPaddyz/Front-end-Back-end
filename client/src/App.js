@@ -26,7 +26,7 @@ function App() {
         <Route exact path="/comment">
           <CApp/>
         </Route>
-        <Route exact path="/event">
+        <Route exact path="/event/:id">
           <Event/>
         </Route>
       </Switch>

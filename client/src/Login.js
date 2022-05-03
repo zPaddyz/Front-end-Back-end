@@ -53,7 +53,7 @@ async function checkLogin(Email, Password) {
             console.log(response)
             if (response.status === 204) {
                 alert("Login succesfuld");
-                window.location.replace("/Home");
+                window.location.replace("/home");
             } else {
                 alert("Incorrect information");
             }
@@ -89,7 +89,6 @@ const Login = () => {
                         <Link to="/register" style={{textDecoration: "none"}}>
                             <Button variant="contained" className="buttonStyle" style={{backgroundColor: "#6BC4A2", marginTop: "20px", borderRadius: "30px" }}>Create an account</Button>
                         </Link>
-                        
                     </Grid>
                 </Grid>
             </Paper>

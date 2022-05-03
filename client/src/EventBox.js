@@ -3,6 +3,8 @@ import "./EventBox.css";
 import Valley from "./Valley.jpg"
 import city from "./city.jpg"
 import { useState, useEffect, useRef } from "react";
+import {Button} from "@mui/material";
+import AddIcon from '@mui/icons-material/Add';
 
 function EventBox(props){
     const obj = useRef(0);
@@ -25,7 +27,7 @@ function displayItem(get){
     const color = JSON.parse(localStorage.getItem(get)).color;
         return(
             <div className="eventBoxes">
-                <button className="myButton" style={{backgroundColor: color}}>
+                <Button className="myButton" style={{backgroundColor: color}}>
                 <p className ="title">{title}</p>
                 <img id="test"/>
                 {
@@ -35,7 +37,7 @@ function displayItem(get){
                 }
 
                 <p className = "date">{date}</p>
-                </button>
+                </Button>
             </div>
         )
 }

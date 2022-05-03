@@ -1,6 +1,8 @@
 // server/index.js
 const User = require("./models/User");
 
+const Event = require("./models/Events");
+
 const express = require("express");
 
 const sequelize = require("./config/db");
@@ -15,6 +17,7 @@ const reactBuild = path.join(__dirname.substring(0,__dirname.length-6), "client"
 
 // calling body-parser to handle the Request Object from POST requests
 var bodyParser = require('body-parser');
+const {response} = require("express");
 // parse application/json, basically parse incoming Request Object as a JSON Object
 app.use(bodyParser.json());
 
@@ -31,11 +34,16 @@ app.get("/apitest", (req, res) => {
   res.json({ title: "Test",picture : "Valley", date : "22/7/2029", color :"#F6E2DF"});
 });
 
+app.get('/event/get/:id', (req,res) => {
+  const id = req.params.id
+  Event.findOne({where: {id: id}}).then(post => res.json(post))
+})
 
 
 app.get("*", async(req,res) =>{
   res.sendFile(path.join(reactBuild,"index.html"))
 } )
+
 
 
 sequelize.sync({}).then(() => {
@@ -53,6 +61,7 @@ const user = User.create({
 })*/
 
 //User.findOne({ where: { id: "d70b7455-8617-468a-bc8a-00f92ba4d05e"}}).then((user) => {console.log(user.dataValues.firstName);})
+
 
 app.post('/user', (req, res) => {
   const user = {
@@ -127,6 +136,8 @@ app.put('/event/:id', (req, res) => {
     })
   })
 })
+
+
 
 app.delete('/event/:id', (req, res) => {
   const id = req.params.id

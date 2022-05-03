@@ -1,15 +1,42 @@
 import {Button, TextField} from "@mui/material";
 import EditIcon from "@mui/icons-material/Edit";
-import {useState} from "react";
+import {useEffect, useState} from "react";
+import {useParams} from "react-router-dom";
+import axios from "axios";
 
 
 const Description = () => {
     const [isHidden, setIsHidden] = useState(true);
+    const [isLoading, setLoading] = useState(true);
+    const [error, setError] = useState(null);
+    const [data, setData] = useState(null);
+    const params = useParams();
+
+    useEffect(async () => {
+        await fetch('/event/get/8f75f1b5-b1f0-4fa7-809c-c2606e67a0ec')
+            .then( (response) => {
+                if (response.ok){
+                    return response.json();
+                }
+                throw response;
+            })
+            .then(data => {
+                setData(data);
+            })
+            .catch(error => {
+                console.log("error fetching data: ", error)
+                setError(error)
+            })
+            .finally(() => {
+                setLoading(false)
+            })
+    }, [])
+
     return(
         <div style={{marginTop:"20px", marginRight:"550px"}}>
             <TextField style={{backgroundColor:"white", width:800, borderRadius:"10px"}}
                        variant="standard"
-                       placeholder="                                           Description"
+                       placeholder="JJJJ"
                        disabled={isHidden}
                        multiline
                        inputProps={{maxLength:200}}
