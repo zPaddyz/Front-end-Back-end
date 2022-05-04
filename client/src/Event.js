@@ -8,20 +8,38 @@ import Description from "./Description";
 import SaveAltIcon from '@mui/icons-material/SaveAlt';
 import EditIcon from '@mui/icons-material/Edit';
 import {useEffect, useState} from "react";
+import {useForm} from "react-hook-form";
 import axios from 'axios';
 
 const Event = () => {
     const [isHidden, setIsHidden] = useState(true);
     const [isLoading, setLoading] = useState(true);
+    const {register, handleSubmit} = useForm()
     const [error, setError] = useState(null);
     const [data, setData] = useState(null);
+    const [message, setMessage] = useState("")
     const params = useParams();
 
+    const OnSubmit = (data) => {
+
+        const event = {
+            name: data.name,
+            description: data.description
+        }
+
+        axios.put('event/edit/' + params.id).then((res) => {
+            setMessage(res.data.msg)
+        })
+
+    }
+
+
+
     useEffect(async () => {
-        await fetch('/event/get/8f75f1b5-b1f0-4fa7-809c-c2606e67a0ec')
-            .then( (response) => {
+        await fetch('/event/get/' + params.id)
+            .then( response => {
                 if (response.ok){
-                    console.log(response.data)
+                    console.log(response)
                     return response.json();
                 }
                 throw response;
@@ -36,7 +54,9 @@ const Event = () => {
             .finally(() => {
                 setLoading(false)
             })
-    }, [])
+    }, [params.id])
+
+
 
     if (isLoading) return "Loading data........"
 
@@ -49,19 +69,22 @@ const Event = () => {
                 <Grid item style={{marginRight:"30%"}}>
                     <Button style={{backgroundColor:"white", color:"black", borderRadius:"5px"}} startIcon={<ArrowBackIcon/>}>Back</Button>
                 </Grid>
+                <p style={{paddingTop: "20px", color: "green"}}>{message}</p>
+                <form onSubmit={handleSubmit(OnSubmit)}>
                 <Grid item>
-                    <TextField disabled={isHidden} defaultValue={data.name} style={{fontSize:30}} />
+                    <TextField disabled={isHidden} defaultValue={data.name} style={{fontSize:30}}
+                               {...register("name", {required: true})}/>
                     <Button onClick={() => setIsHidden(!isHidden)} startIcon={<EditIcon/>} style={{color: "black", padding:"0", minHeight:"0", minWidth:"0", marginLeft:"10px"}}/>
                     <Typography>12/1/2022 - 20/1/2022</Typography>
                 </Grid>
                 <Grid item style={{marginLeft:"30%"}}>
-                    <Button style={{backgroundColor:"#6BC4A2", color:"black"}} startIcon={<SaveAltIcon/>}>Save changes</Button>
+                    <Button style={{backgroundColor:"#6BC4A2", color:"black"}} startIcon={<SaveAltIcon/>} type={"submit"}>Save changes</Button>
                 </Grid>
+                <Grid item>
+                    <Description/>
+                </Grid>
+               </form>
             </Grid>
-            <Description/>
-            <div>
-                <Typography style={{marginTop:"100%"}}>Videre</Typography>
-            </div>
         </div>
     )
 }

@@ -43,6 +43,7 @@
   },
   "proxy": "http://localhost:3001",
   "devDependencies": {
-    "@mui/material": "^5.5.1"
+    "@mui/material": "^5.5.1",
+    "react-hook-form": "^7.30.0"
   }
 }

@@ -121,7 +121,7 @@ app.get('/user/get/:email/:inputPass', (req, res) => {
     })
 })
 
-app.put('/event/:id', (req, res) => {
+app.put('/event/edit/:id', (req, res) => {
   const eventId = req.params.id
   Event.findOne({where: {id: eventId}}).then((response) => {
     var event = {
@@ -130,9 +130,10 @@ app.put('/event/:id', (req, res) => {
     }
     Event.update(event, {where: {id: eventId}
     }).then(() => {
-      res.json("Event updated")
+      res.json({msg: "Event updated"})
     }).catch((err) => {
       console.log(err)
+      res.send(err)
     })
   })
 })
