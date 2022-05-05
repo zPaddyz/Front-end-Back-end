@@ -107,7 +107,7 @@ app.post('/event', (req, res) => {
     description: req.body.description,
     //userId: req.user.id
   }
-  Event.create(event).then(post => res.json(event))
+  Event.create(event).then(event => res.json(event))
 })
 
 app.get('/user/get/:email/:inputPass', (req, res) => {
@@ -133,16 +133,9 @@ app.put('/event/edit/:id', (req, res) => {
       res.json({msg: "Event updated"})
     }).catch((err) => {
       console.log(err)
-      res.send(err)
+      res.send({msg:"Something went wrong"})
     })
   })
-})
-
-
-
-app.delete('/event/:id', (req, res) => {
-  const id = req.params.id
-  Event.destroy({where: {id:id}}).then(()=> res.json("EVENT DESTROYED"))
 })
 
 /*app.put("/event/:id", (req,res) => {
@@ -153,3 +146,9 @@ app.delete('/event/:id', (req, res) => {
     console.log(err)
   })
 })*/
+
+
+app.delete('/event/delete/:id', (req, res) => {
+  const id = req.params.id
+  Event.destroy({where: {id:id}}).then(()=> res.json({msg:"EVENT DELETED"}))
+})
