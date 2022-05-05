@@ -1,5 +1,6 @@
 // server/index.js
 const User = require("./models/User");
+const Event = require("./models/Events")
 
 const express = require("express");
 
