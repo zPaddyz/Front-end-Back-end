@@ -229,7 +229,8 @@ app.post('/event', (req, res) => {
   const event = {
     name: req.body.name,
     description: req.body.description,
-    emails: req.body.email
+    emails: req.body.email,
+    date: req.body.date
     //userId: req.user.id
   }
   Event.create(event).then(event => res.json(event))

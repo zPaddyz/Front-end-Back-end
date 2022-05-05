@@ -1,18 +1,11 @@
-import {AppBar, Button, makeStyles, Toolbar, Typography} from "@mui/material";
-import Plannerino from "./Plannerino.png";
+import {Button} from "@mui/material";
 import plus from "./plus.png";
 import React from "react";
 import ReactDOM from 'react-dom';
 import EventBox from "./EventBox";
-
+import Header from "./Header";
 
 let userEmail = "";
-
-function checkForToken(){
-    if(document.cookie.search("token") === -1){
-        window.location.replace("/")
-    }
-}
 
 async function welcomeText(){
     let email ="";
@@ -36,18 +29,12 @@ async function welcomeText(){
     document.getElementById("email").innerText = "Welcome " + email;
     await getEvents(email)
     return userEmail = email
-
-}
-function logOut(){
-    if(document.cookie.search("token") === 0){
-        document.cookie = "token"+'=; Max-Age=-99999999;';
-    }
-    checkForToken()
 }
 
 async function addEvent(){
     const Name = prompt("Please enter a name for your event", "Event");
     const Description = prompt("Please enter a description for your event","Description");
+    const Date = prompt("Please enter a date for your event","00/00/0000");
     const requestOptions = {
         method: 'POST',
         headers: {
@@ -57,7 +44,8 @@ async function addEvent(){
         body: JSON.stringify({
             "name": Name,
             "description": Description,
-            "email": userEmail
+            "email": userEmail,
+            "date": Date
         })
     }
     const event = await fetch('/event', requestOptions).then( (response) => {
@@ -90,27 +78,15 @@ async function getEvents(Email){
     })
 
     await event.forEach(element => {
-        ReactDOM.render(EventBox(element.name,element.id,"00/00/0000","city"), document.body.appendChild(document.createElement('div')));
+        ReactDOM.render(EventBox(element.name,element.id,element.date,"city"), document.body.appendChild(document.createElement('div')));
     })
 }
 
 const Home = () =>{
-    checkForToken()
     welcomeText()
     return(
         <div>
-        <div style={{backgroundColor: "#F6EFDF"}}>
-            <AppBar position="static" style={{backgroundColor: "#F6EFDF"}}>
-                <Toolbar>
-                    <img src={Plannerino} alt={"bibo"} height={"40px"} width={"350px"} style={{padding: "20px 0px", marginTop: ""}}/>
-                    <div style={{backgroundColor: "#D5A13E", marginLeft: "1000px", padding: "", borderRadius: "5px"}}>
-
-                            <Button onClick={() =>logOut()} style={{color: "white"}}>log out</Button>
-
-                    </div>
-                </Toolbar>
-            </AppBar>
-        </div>
+            <Header/>
             <h2 style={{marginLeft: "50px"}} id="email"/>
             <Button onClick={() => addEvent()} style={{backgroundColor: "#ffffff", marginLeft: "50px"}} >
             <img src={plus}  height={"200px"} width={"200px"} alt={"Add Event"}/>

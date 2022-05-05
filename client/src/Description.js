@@ -16,6 +16,7 @@ const Description = () => {
     const [message, setMessage] = useState("")
     const [name, setName] = useState();
     const [description, setDescription] = useState();
+    const [date, setDate] = useState();
     const params = useParams();
 
 
@@ -55,6 +56,7 @@ const Description = () => {
             .then(data => {
                 setName(data.name)
                 setDescription(data.description)
+                setDate(data.date)
             })
             .catch(error => {
                 console.log("error fetching data: ", error)
@@ -83,7 +85,7 @@ const Description = () => {
                                    style={{fontSize:30}}
                                    {...register("name")}/>
                         <Button onClick={() => setIsHidden(!isHidden)} startIcon={<EditIcon/>} style={{color: "black", padding:"0", minHeight:"0", minWidth:"0", marginLeft:"10px"}}/>
-                        <Typography>12/1/2022 - 20/1/2022</Typography>
+                        <Typography>{date}</Typography>
                     </Grid>
                     <Grid item>
                         <TextField style={{backgroundColor:"white", width:800, borderRadius:"10px"}}
