@@ -39,7 +39,6 @@ async function checkLogin(Email, Password) {
             headers: {
                 'Accept': 'application/json',
                 'Content-Type': 'application/json'
-                //'My-Custom-Header': 'foobar'
             },
             body: JSON.stringify({
                 "email": Email,
@@ -47,19 +46,17 @@ async function checkLogin(Email, Password) {
             })
         }
 
-        
+        let answer;
         await fetch('/users/get', requestOptions)
         .then( (response) => { 
             console.log(response)
-            if (response.status === 204) {
-                alert("Login succesfuld");
-                window.location.replace("/home");
-            } else {
-                alert("Incorrect information");
-            }
-            //do something awesome that makes the world a better place
-         })   
-
+            answer = response
+         })
+        if (answer.status === 204) {
+            await redirectHome()
+        }else {
+            alert("Incorrect information");
+        }
     } catch (err) {
         console.log("failed");
         console.log(err);
@@ -67,8 +64,47 @@ async function checkLogin(Email, Password) {
         //alert(err)
     }
 }
+async function redirectHome() {
+    let success = false;
+    try {
+        const requestOptions = {
+            method: 'GET',
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'//,
+                //'x-access-token': token
+            }
+        }
+    let welcome = await fetch('/welcome', requestOptions).then( (response) => {
+        console.log(response)
+        if (response.status === 202) {
+            success = true
+            return response.json()
+        } else {
+            alert("Login failed please try again")
+        }
+    })
+        if(welcome && success) {
+            //console.log(welcome);
+            alert("Login succesfuld! Welcome " + JSON.stringify(welcome.message).replaceAll("\"",""))
+            window.location.replace("/home")
+        }
+
+    }catch (err) {
+        console.log("failed to redirect");
+        console.log(err);
+    }
+}
+function checkForToken(){
+    if(document.cookie.search("token") === 0){
+        window.location.replace("/home")
+    }
+}
+
 
 const Login = () => {
+    checkForToken()
+
     //const classes = useStyles();
     return (
         <div>

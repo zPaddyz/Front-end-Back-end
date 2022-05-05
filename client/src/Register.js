@@ -57,7 +57,7 @@ async function saveData(Firstname, LastName, Email, Password, ConfirmPassword) {
             await fetch('/user', requestOptions)
             .then( (response) => { 
                 console.log(response)
-                if (response.status === 204) {
+                if (response.status === 200) {
                     alert("User creation succesfuld! \n Please log in.");
                     window.location.replace("/");
                 } else {

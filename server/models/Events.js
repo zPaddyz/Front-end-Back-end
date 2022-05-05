@@ -15,6 +15,10 @@ const Event = sequelize.define("event", {
         type: Sequelize.STRING,
         allowNull: false
     },
+    emails:{
+        type: Sequelize.STRING,
+        allowNull: false
+    }
 });
 
 
