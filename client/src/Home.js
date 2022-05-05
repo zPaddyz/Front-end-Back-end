@@ -78,7 +78,7 @@ async function getEvents(Email){
     })
 
     await event.forEach(element => {
-        ReactDOM.render(EventBox(element.name,element.id,element.date,"city"), document.body.appendChild(document.createElement('div')));
+        ReactDOM.render(EventBox(element.name,element.id,element.date,"city"), document.getElementById("root").appendChild(document.createElement('div')));
     })
 }
 

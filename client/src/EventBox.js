@@ -2,13 +2,16 @@ import React from "react";
 import "./EventBox.css";
 import Valley from "./Valley.jpg"
 import city from "./city.jpg"
+import {Paper} from "@mui/material";
 
 
 
 function EventBox(title = "No Title", id,date = "00/00/0000", picture ="null", color = "#ACDE07"){
         return(
-            <div className="eventBoxes">
-                    <button className="myButton" style={{backgroundColor: /*color*/ "#" + ((1<<24)*Math.random() | 0).toString(16)}} onClick={() =>window.location.replace("/event/"+id)}>
+
+
+                    <button className="myButton" /*style={{backgroundColor: /*color "#" + ((1<<24)*Math.random() | 0).toString(16)}}*/ onClick={() =>window.location.replace("/event/"+id)}>
+                        <Paper elevation={12} style={{backgroundColor: /*color*/ "#" + ((1<<24)*Math.random() | 0).toString(16)}}>
                             <ul style ={{listStyleType: "none", /* Remove bullets */
                                     padding: 0, /* Remove padding */
                                     margin: 0 /* Remove margins */}}>
@@ -27,8 +30,8 @@ function EventBox(title = "No Title", id,date = "00/00/0000", picture ="null", c
                                             <p className = "dada">{date}</p>
                                     </li>
                             </ul>
+                        </Paper>
                     </button>
-            </div>
         )
 }
 

@@ -90,7 +90,7 @@ const Description = () => {
                     <Grid item>
                         <TextField style={{backgroundColor:"white", width:800, borderRadius:"10px"}}
                                    variant="standard"
-                                   devaultvalue={description}
+                                   defaultValue={description}
                                    disabled={isHidden}
                                    multiline
                                    inputProps={{maxLength:200}}
