@@ -17,16 +17,13 @@ const reactBuild = path.join(__dirname.substring(0,__dirname.length-6), "client"
 // calling body-parser to handle the Request Object from POST requests
 var bodyParser = require('body-parser');
 const cookieParser = require("cookie-parser")
-const {compare} = require("bcrypt");
-const {sign} = require("jsonwebtoken");
-const {hash} = require("bcrypt");
-const {response} = require("express");
 
+const bcrypt = require("bcrypt");
+const jwt = require("jsonwebtoken");
 const JsonWebTokenError = require("jsonwebtoken/lib/JsonWebTokenError");
-const {verify} = require("jsonwebtoken");
 
 const jwtKey = "my_secret_key"
-const jwtExpirySeconds = 300
+const jwtExpirySeconds = 1800
 
 // parse application/json, basically parse incoming Request Object as a JSON Object
 app.use(bodyParser.json());
@@ -49,7 +46,7 @@ app.get("/welcome", (req, res) => {
       // Note that we are passing the key in this method as well. This method will throw an error
       // if the token is invalid (if it has expired according to the expiry time we set on sign in),
       // or if the signature does not match
-      payload = verify(token, jwtKey)
+      payload = jwt.verify(token, jwtKey)
     } catch (e) {
       if (e instanceof JsonWebTokenError) {
         // if the error thrown is because the JWT is unauthorized, return a 401 error
@@ -71,7 +68,7 @@ app.post("/refresh", (req, res) => {
 
   var payload
   try {
-    payload = verify(token, jwtKey)
+    payload = jwt.verify(token, jwtKey)
   } catch (e) {
     if (e instanceof JsonWebTokenError) {
       return res.status(401).end()
@@ -89,7 +86,7 @@ app.post("/refresh", (req, res) => {
   }
 
   // Now, create a new token for the current user, with a renewed expiration time
-  const newToken = sign({ username: payload.username }, jwtKey, {
+  const newToken = jwt.sign({ username: payload.username }, jwtKey, {
     algorithm: "HS256",
     expiresIn: jwtExpirySeconds,
   })
@@ -98,20 +95,6 @@ app.post("/refresh", (req, res) => {
   res.cookie("token", newToken, { maxAge: jwtExpirySeconds * 1000 })
   res.end()
 })
-
-app.post("/welcome", (req, res) => {
-  res.status(200).send("Welcome 🙌 ");
-});
-
-
-app.get("/apis", (req, res) => {
-  res.set('Access-Control-Allow-Origin', '*');
-  res.json({ title: "Bryllupsdag",picture : "city", date : "14/4/2022", color :"#CCFFE5"});
-});
-app.get("/apitest", (req, res) => {
-  res.set('Access-Control-Allow-Origin', '*');
-  res.json({ title: "Test",picture : "Valley", date : "22/7/2029", color :"#F6E2DF"});
-});
 
 app.get('/event/get/:id', (req,res) => {
   const id = req.params.id
@@ -126,19 +109,14 @@ sequelize.sync({}).then(() => {
 
 //register
 app.post("/user", async (req, res) => {
-
   // Our register logic starts here
   try {
-    // Get user input
-
-
     // Validate user input
     if (!(req.body.email && req.body.password && req.body.firstName && req.body.lastName)) {
       res.status(400).send("All input is required");
     }
 
     // check if user already exist
-    // Validate if user exist in our database
     let email = req.body.email
     const oldUser = await User.findOne( { where :{email}} )
     if (oldUser) {
@@ -146,8 +124,7 @@ app.post("/user", async (req, res) => {
     }
 
     //Encrypt user password
-    let encryptedPassword = await hash(req.body.password, 10);
-
+    let encryptedPassword = await bcrypt.hash(req.body.password, 10);
 
     const user = {
       email: req.body.email,
@@ -155,18 +132,7 @@ app.post("/user", async (req, res) => {
       lastName: req.body.lastName,
       password: encryptedPassword
     }
-
-    const token = sign(
-        { user_id: user._id, email },
-        jwtKey,
-        process.env.TOKEN_KEY,
-        {
-          expiresIn: "2h",
-        }
-    );
-
-    User.create(user)//.then(user => res.status(204).json(user))
-    //res.cookie("token", token, { maxAge: 300 * 1000 })
+    User.create(user)
     res.end()
   } catch (err) {
     console.log(err);
@@ -176,27 +142,22 @@ app.post("/user", async (req, res) => {
 
 //login
 app.post("/users/get", async (req, res) => {
-
   // Our login logic starts here
   try {
     // Get user input
     let email = req.body.email
     let password = req.body.password
-    let foundPass;
 
     // Validate user input
     if (!(email && password)) {
       res.status(400).send("All input is required");
     }
-    // Validate if user exist in our database
-    let findUser = await User.findOne( { where :{email}} )//.then(result =>{findUser = result})
-    //console.log(foundPass)
+    // Check if user exist in our database
+    let findUser = await User.findOne( { where :{email}} )
     if (findUser){
-      //console.log("findUser virker")
-      if(await compare(password, findUser.password)) {
-        //console.log("compare virker")
+      if(await bcrypt.compare(password, findUser.password)) {
         // Create token
-        const token = sign(
+        const token = jwt.sign(
             { user_id: findUser._id, email },
             jwtKey,
             process.env.TOKEN_KEY,
@@ -217,7 +178,6 @@ app.post("/users/get", async (req, res) => {
   } catch (err) {
     console.log(err);
   }
-  // Our register logic ends here
 });
 
 app.delete('/user/:id', (req, res) => {

@@ -24,6 +24,7 @@ async function welcomeText(){
             alert("Something went wrong")
         }
     })
+
     email = JSON.stringify(welcome.message).replaceAll("\"","")
     console.log(email)
     document.getElementById("email").innerText = "Welcome " + email;
@@ -33,7 +34,7 @@ async function welcomeText(){
 
 async function addEvent(){
     const Name = prompt("Please enter a name for your event", "Event");
-    const Description = prompt("Please enter a description for your event","Description");
+    //const Description = prompt("Please enter a description for your event","Description");
     const Date = prompt("Please enter a date for your event","00/00/0000");
     const requestOptions = {
         method: 'POST',
@@ -43,7 +44,7 @@ async function addEvent(){
         },
         body: JSON.stringify({
             "name": Name,
-            "description": Description,
+            "description": "",
             "email": userEmail,
             "date": Date
         })
@@ -51,6 +52,7 @@ async function addEvent(){
     const event = await fetch('/event', requestOptions).then( (response) => {
         console.log(response)
         if (response.status === 200) {
+            window.location.replace("/home")
             return response.json()
         } else {
             alert("Event could not be created")

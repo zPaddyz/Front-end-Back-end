@@ -31,11 +31,6 @@ const User = sequelize.define("user", {
         type: Sequelize.TEXT,
         allowNull: false
     }
-
-   /* profilePicture: {
-        type: Sequelize.TEXT,
-        defaultValue: ""
-    }*/
 });
 
 User.hasMany(Event, {onDelete: 'CASCADE'})

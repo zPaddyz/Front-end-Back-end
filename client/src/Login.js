@@ -86,7 +86,7 @@ async function redirectHome() {
     })
         if(welcome && success) {
             //console.log(welcome);
-            alert("Login succesfuld! Welcome " + JSON.stringify(welcome.message).replaceAll("\"",""))
+            //alert("Login succesfuld! Welcome " + JSON.stringify(welcome.message).replaceAll("\"",""))
             window.location.replace("/home")
         }
 
