@@ -7,6 +7,7 @@ import Register from "./Register";
 import Home from "./Home";
 import CApp from "./commentApp";
 import About from "./about/About";
+import Event from "./Event";
 
 function App() {
   return (
