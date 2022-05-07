@@ -112,7 +112,7 @@ app.post("/user", async (req, res) => {
   // Our register logic starts here
   try {
     // Validate user input
-    if (!(req.body.email && req.body.password && req.body.firstName && req.body.lastName)) {
+    if (!(req.body.email && req.body.password && req.body.userName)) {
       res.status(400).send("All input is required");
     }
 
@@ -127,9 +127,8 @@ app.post("/user", async (req, res) => {
     let encryptedPassword = await bcrypt.hash(req.body.password, 10);
 
     const user = {
+      userName: req.body.userName,
       email: req.body.email,
-      firstName: req.body.firstName,
-      lastName: req.body.lastName,
       password: encryptedPassword
     }
     User.create(user)

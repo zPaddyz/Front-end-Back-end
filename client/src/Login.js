@@ -1,5 +1,5 @@
 import Paper from '@mui/material/Paper';
-import Plannerino from "./Plannerino.png"
+import Plannerino from "./images/Plannerino.png"
 import { Button, Grid, TextField } from "@mui/material";
 import "./Login.css";
 //import { makeStyles } from '@mui/styles';

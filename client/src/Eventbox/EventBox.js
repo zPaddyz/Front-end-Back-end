@@ -1,7 +1,7 @@
 import React from "react";
 import "./EventBox.css";
-import Valley from "./Valley.jpg"
-import city from "./city.jpg"
+import Valley from "../images/Valley.jpg"
+import city from "../images/city.jpg"
 import {Paper} from "@mui/material";
 
 

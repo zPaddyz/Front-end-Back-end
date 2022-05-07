@@ -6,6 +6,8 @@ import axios from "axios";
 import {useForm} from "react-hook-form";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import SaveAltIcon from "@mui/icons-material/SaveAlt";
+import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
+
 const Description = () => {
     const [isHidden, setIsHidden] = useState(true);
     const [isHidden1, setIsHidden1] = useState(true);
@@ -78,37 +80,79 @@ const Description = () => {
 
     return(
         <div>
-            <Grid container item alignItems="center" justifyContent="center" direction={'row'} style={{marginTop:""}}>
+            <Grid container item alignItems="center" justifyContent="center" direction={'row'} style={{marginTop:"", height:"800px"}}>
                 <form onSubmit={handleSubmit(OnSubmit)}>
                     <Grid item>
-                        <Button style={{position: 'absolute', left: 0,backgroundColor:"white", color:"black", borderRadius:"5px", marginLeft: "10px", marginTop:"10px"}} startIcon={<ArrowBackIcon/>}>Back</Button>
+                        <Button style={{position: 'absolute', top:"12%", left: "5%",backgroundColor:"white", color:"black", borderRadius:"5px", marginLeft: "10px", marginTop:"10px"}} startIcon={<ArrowBackIcon/>}>Back</Button>
                     </Grid>
                     <Grid item>
-                        <Button style={{position: 'absolute', right: 0,backgroundColor:"#6BC4A2", color:"black", marginRight: "10px", marginTop:"10px"}} startIcon={<SaveAltIcon/>} type={"submit"}>Save changes</Button>
-                        <Button style={{position: 'absolute', right: 0,backgroundColor:"red", color:"black", marginRight: "10px" ,marginTop:"50px"}}>Delete :)</Button>
+                        <Button style={{position: 'absolute', left:"40%", bottom: "25%", backgroundColor:"#6BC4A2", color:"black", marginRight: "10px", marginTop:"10px"}} startIcon={<SaveAltIcon/>} type={"submit"}>Save changes</Button>
+                        <Button onClick={() => deleteEvent()} style={{position: 'absolute', left:"50%", bottom: "25%", backgroundColor:"red", color:"black", marginRight: "10px" ,marginTop:"10px"}} startIcon={<DeleteForeverIcon></DeleteForeverIcon>}>Delete Event</Button>
                     </Grid>
                     <p style={{paddingTop: "20px", color: "green"}}>{message}</p>
                     <Grid item>
-                        <Typography>Title<Button onClick={() => setIsHidden(!isHidden)} startIcon={<EditIcon/>} style={{color: "black", padding:"0", minHeight:"0", minWidth:"0", marginLeft:"50px"}}/></Typography>
+                        <Typography style={{
+                            fontSize:20,
+                            position: 'absolute',
+                            left:"30%",
+                            top: "12%"
+                        }} >Title<Button onClick={() => setIsHidden(!isHidden)} startIcon={<EditIcon/>} style={{color: "black", padding:"0", minHeight:"0", minWidth:"0", marginLeft:"5px"}}/></Typography>
                         <TextField disabled={isHidden}
                                    defaultValue={name}
-                                   style={{fontSize:30}}
+                                   style={{
+                                       fontSize:30,
+                                       position: 'absolute',
+                                       left:"30%",
+                                       top: "15%"
+                                    }}
                                    {...register("name")}/>
-                        <Typography>Date<Button onClick={() => setIsHidden1(!isHidden1)} startIcon={<EditIcon/>} style={{color: "black", padding:"0", minHeight:"0", minWidth:"0", marginLeft:"50px"}}/></Typography>
+                        <Typography style={{
+                            fontSize:20,
+                            position: 'absolute',
+                            left:"45%",
+                            top: "12%"
+                        }} >Date<Button onClick={() => setIsHidden1(!isHidden1)} startIcon={<EditIcon/>} style={{color: "black", padding:"0", minHeight:"0", minWidth:"0", marginLeft:"5px"}}/></Typography>
                         <TextField disabled={isHidden1}
                                    defaultValue={date}
-                                   style={{fontSize:20}}
+                                   style={{
+                                       fontSize:20,
+                                       position: 'absolute',
+                                       left:"45%",
+                                       top: "15%"
+                                    }}
                                    {...register("date")}/>
-                        <Typography>Color<Button onClick={() => setIsHidden2(!isHidden2)} startIcon={<EditIcon/>} style={{color: "black", padding:"0", minHeight:"0", minWidth:"0", marginLeft:"50px"}}/></Typography>
+                        <Typography style={{
+                            fontSize:20,
+                            position: 'absolute',
+                            left:"60%",
+                            top: "12%"
+                        }}>Color (in text or hex format)<Button onClick={() => setIsHidden2(!isHidden2)} startIcon={<EditIcon/>} style={{color: "black", padding:"0", minHeight:"0", minWidth:"0", marginLeft:"    5px"}}/></Typography>
                         <TextField disabled={isHidden2}
                                    defaultValue={color}
-                                   style={{fontSize:20}}
+                                   style={{
+                                       fontSize:20,
+                                       position: 'absolute',
+                                       left:"60%",
+                                       top: "15%"
+                                    }}
                                     {...register("color")}/>
                     </Grid>
                     <br/>
                     <br/>
                     <Grid item>
-                        <TextField style={{backgroundColor:"white", width:800, borderRadius:"10px", marginLeft:"10px"}}
+                        <Typography style={{
+                            fontSize:20,
+                            position: 'absolute',
+                            left:"30%",
+                            top: "25%"
+                        }}>Description<Button onClick={() => setIsHidden2(!isHidden2)} startIcon={<EditIcon/>}
+                                                                style={{color: "black", padding:"0", minHeight:"0", minWidth:"0", marginLeft:"    5px"}}/></Typography>
+                        <TextField style={{backgroundColor:"white", width:800, borderRadius:"10px",
+                            fontSize:20,
+                            position: 'absolute',
+                            left:"30%",
+                            top: "28%"
+                        }}
                                    variant="standard"
                                    defaultValue={description}
                                    disabled={isHidden3}
@@ -118,8 +162,9 @@ const Description = () => {
                                    InputProps={{disableUnderline: true }}
                                    rows={13}
                                    maxRows={13}/>
-                        <Button onClick={() => setIsHidden3(!isHidden3)} startIcon={<EditIcon/>} style={{color: "black", padding:"0", minHeight:"0", minWidth:"0", marginLeft:"10px"}}/>
                     </Grid>
+                    <br/>
+                    <br/>
                     <br/>
                     <br/>
                 </form>

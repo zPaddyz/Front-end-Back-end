@@ -1,8 +1,8 @@
 import {Button} from "@mui/material";
-import plus from "./plus.png";
+import plus from "./images/plus.png";
 import React from "react";
 import ReactDOM from 'react-dom';
-import EventBox from "./EventBox";
+import EventBox from "./Eventbox/EventBox";
 import Header from "./Header";
 
 let userEmail = "";
@@ -21,7 +21,8 @@ async function welcomeText(){
         if (response.status === 202) {
             return response.json()
         } else {
-            alert("Something went wrong")
+            //alert("Something went wrong")
+            console.log("Something went wrong")
         }
     })
 
@@ -81,7 +82,6 @@ async function getEvents(Email){
     })
 
     await event.forEach(element => {
-        //console.log(element.color + " Farven er ")
         ReactDOM.render(EventBox(element.name,element.id,element.date,"city",element.color), document.getElementById("root").appendChild(document.createElement('div')));
     })
 }
@@ -91,10 +91,9 @@ const Home = () =>{
     return(
         <div>
             <Header/>
-            <h2 style={{marginLeft: "50px"}} id="email"/>
+            <h2 style={{textAlign: "center"}} id="email"/>
             <Button onClick={() => addEvent()} style={{backgroundColor: "#ffffff", marginLeft: "50px"}} >
             <img src={plus}  height={"200px"} width={"200px"} alt={"Add Event"}/>
-            <p>Add new event</p>
             </Button>
         </div>
     )

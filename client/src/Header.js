@@ -1,13 +1,13 @@
 import {AppBar, Button, Divider, Grid, TextField, Toolbar, Typography} from "@mui/material";
-import Plannerino from "./Plannerino.png";
+import Plannerino from "./images/Plannerino.png";
 import {Link} from "react-router-dom";
 import HomeIcon from '@mui/icons-material/Home';
 import InfoIcon from '@mui/icons-material/Info';
 import LogoutIcon from '@mui/icons-material/Logout';
 import PersonIcon from '@mui/icons-material/Person';
 import LoginIcon from '@mui/icons-material/Login';
-import Valley from "./Valley.jpg";
-import city from "./city.jpg";
+import Valley from "./images/Valley.jpg";
+import city from "./images/city.jpg";
 import React from "react";
 
 function logOut(){

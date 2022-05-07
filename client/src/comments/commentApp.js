@@ -1,4 +1,4 @@
-import Comments from './comments/Comments'
+import Comments from './Comments'
 // Change Comments from currentUserId  to fetch from backend
 const commentApp = () => {
     return (

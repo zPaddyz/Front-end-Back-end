@@ -1,13 +1,13 @@
 import React from "react";
-import logo from "./logo.svg";
+import logo from "./images/logo.svg";
 import "./App.css";
 import Login from "./Login";
 import {BrowserRouter as Router, Route, Switch} from 'react-router-dom';
 import Register from "./Register";
 import Home from "./Home";
-import CApp from "./commentApp";
+import CApp from "./comments/commentApp";
 import About from "./about/About";
-import Event from "./Event";
+import Event from "./Event/Event";
 
 function App() {
   return (

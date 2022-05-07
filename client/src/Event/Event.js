@@ -1,4 +1,4 @@
-import Header from "./Header";
+import Header from "../Header";
 import Description from "./Description";
 
 const Event = () => {

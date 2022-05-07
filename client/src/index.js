@@ -6,7 +6,7 @@ import "./index.css";
 import reportWebVitals from './reportWebVitals';
 import { StyledEngineProvider } from "@mui/material/styles";
 import Login from './Login';
-import CApp from "./commentApp"; //for comment test
+import CApp from "./comments/commentApp"; //for comment test
 
 
 ReactDOM.render(

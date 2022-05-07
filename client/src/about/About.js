@@ -27,9 +27,11 @@ const About = () => {
                 <div class="grid-item content-image image-2 hidden-sm hidden-xs"></div>
                 <div class="grid-item content-text">
                     <h2>What problem do we solve?</h2>
-                    <p>Administrate, get or edit your next event with the help of planeriono.  </p>
-                    <p>With Plannerino we simplify the process of planning your next event so you have everything in one spot. The events can be anything from vacation to festivals.   </p>
-                    <p>With Plannerino you get features such as inviting all your friends to a specific event to keep up to date with any important announcements. Furthermore you can add pictures of the event so you always have your memories in a specfiic place.
+                    <p>Administrate, get or edit your next event with the help of Plannerino.  </p>
+                    <p>With Plannerino we simplify the process of planning your next event so you have everything in one spot.
+                        The events can be anything from vacation to festivals.   </p>
+                    <p>With Plannerino you get features such as inviting all your friends to a specific event to keep up to date with any important announcements.
+                        Furthermore you can add pictures of the event so you always have your memories in a specfiic place.
                         add a checklist for everyone to see so no one misses out or forgets to bring something important.
                         lastly you can add your budget. </p>
                 </div>

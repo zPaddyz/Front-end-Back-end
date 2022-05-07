@@ -61,7 +61,7 @@ p {
     line-height: 1.5;
 }
 body .page_about .grid .grid-item.content.image.image-1{
-    background-image: url("/src/city.jpg");
+    background-image: url("../images/city.jpg");
 }
 body .page_about .grid .grid-item.content-image{
     background-position: left center;
@@ -72,6 +72,6 @@ body .page_about .grid .grid-item{
     grid-column: span 1;
 }
 body .page_about .grid .grid-item.content-image.image-2{
-    background-image: url("/src/city.jpg")
+    background-image: url("../images/city.jpg")
 }
  

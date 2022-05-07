@@ -1,5 +1,5 @@
 import Paper from '@mui/material/Paper';
-import Plannerino from "./Plannerino.png"
+import Plannerino from "./images/Plannerino.png"
 import {Button, Grid, TextField } from "@mui/material";
 import { makeStyles } from "@mui/styles";
 //import { Link } from 'react-router-dom';
@@ -34,11 +34,11 @@ const useStyles = makeStyles({
     }
 });
 
-async function saveData(Firstname, LastName, Email, Password, ConfirmPassword) {
-    var failedAttempt = false;
+async function saveData(UserName, Email, Password, ConfirmPassword) {
+    let failedAttempt = false;
     //TODO: Ryk til backend
     // email regex = https://www.w3resource.com/javascript/form/email-validation.php
-    if (Firstname !== "" && (/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(Email)) && Password !== "" && ConfirmPassword !== "") {
+    if (UserName !== "" && (/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(Email)) && Password !== "" && ConfirmPassword !== "") {
         if (Password === ConfirmPassword) {
             const requestOptions = {
                 method: 'POST',
@@ -47,8 +47,7 @@ async function saveData(Firstname, LastName, Email, Password, ConfirmPassword) {
                     'Authorization': 'Bearer my-token'  
                 },
                 body: JSON.stringify({
-                    "firstName": Firstname,
-                    "lastName": LastName,
+                    "userName":UserName,
                     "email": Email,
                     "password": Password
                 })
@@ -99,7 +98,7 @@ const Register = () => {
                     <Grid item xs={12}>
 
                         <Button onClick={() => {
-                            saveData(document.getElementById("1").value, document.getElementById("1").value, document.getElementById("2").value, document.getElementById("3").value, document.getElementById("4").value,
+                            saveData(document.getElementById("1").value, document.getElementById("2").value, document.getElementById("3").value, document.getElementById("4").value,
                             /*firstNameRef.value, firstNameRef.value, emailRef.value, passwordRef.value, confirmPasswordRef.value*/)
                         }
                         } variant="contained" className={classes.buttonStyle}>Get planning</Button>
