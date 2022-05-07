@@ -30,8 +30,8 @@ const Description = () => {
 
         axios.put('/event/edit/' + params.id, event).then((res) => {
             setMessage(res.data.msg);
+            window.location.reload();
         })
-
     }
 
     const deleteEvent = () =>{
@@ -69,16 +69,20 @@ const Description = () => {
 
     if (isLoading) return "Loading data........"
 
-    if (error) return "Fuck this shit"
+    if (error) return "Error..."
 
     return(
         <div>
-            <Grid container item alignItems="center" justifyContent="center" direction={'row'} style={{marginTop:"20px"}}>
-                <Grid item style={{marginRight:"30%"}}>
-                    <Button style={{backgroundColor:"white", color:"black", borderRadius:"5px"}} startIcon={<ArrowBackIcon/>}>Back</Button>
-                </Grid>
-                <p style={{paddingTop: "20px", color: "green"}}>{message}</p>
-                <form onSubmit={handleSubmit(OnSubmit)}>
+            <Grid container item alignItems="center" justifyContent="center" direction={'row'} style={{marginTop:""}}>
+                <form>
+                    <Grid item>
+                        <Button style={{position: 'absolute', left: 0,backgroundColor:"white", color:"black", borderRadius:"5px", marginLeft: "10px", marginTop:"10px"}} startIcon={<ArrowBackIcon/>}>Back</Button>
+                    </Grid>
+                    <Grid item>
+                        <Button style={{position: 'absolute', right: 0,backgroundColor:"#6BC4A2", color:"black", marginRight: "10px", marginTop:"10px"}} startIcon={<SaveAltIcon/>} type={"submit"}>Save changes</Button>
+                        <Button style={{position: 'absolute', right: 0,backgroundColor:"red", color:"black", marginRight: "10px" ,marginTop:"50px"}}>Delete :)</Button>
+                    </Grid>
+                    <p style={{paddingTop: "20px", color: "green"}}>Updated</p>
                     <Grid item>
                         <TextField disabled={isHidden}
                                    defaultValue={name}
@@ -88,25 +92,19 @@ const Description = () => {
                         <Typography>{date}</Typography>
                     </Grid>
                     <Grid item>
-                        <TextField style={{backgroundColor:"white", width:800, borderRadius:"10px"}}
+                        <TextField style={{backgroundColor:"white", width:800, borderRadius:"10px", marginLeft:"50px"}}
                                    variant="standard"
                                    defaultValue={description}
                                    disabled={isHidden}
+                                   {...register("description")}/>
                                    multiline
                                    inputProps={{maxLength:200}}
                                    InputProps={{disableUnderline: true }}
-                                   {...register("description")}
                                    rows={13}
                                    maxRows={13}/>
                         <Button onClick={() => setIsHidden(!isHidden)} startIcon={<EditIcon/>} style={{color: "black", padding:"0", minHeight:"0", minWidth:"0", marginLeft:"10px"}}/>
                     </Grid>
-                    <Grid item style={{marginLeft:"30%"}}>
-                        <Button style={{backgroundColor:"#6BC4A2", color:"black"}} startIcon={<SaveAltIcon/>} type={"submit"}>Save changes</Button>
-                    </Grid>
                 </form>
-                <Grid item style={{marginLeft:"30%"}}>
-                    <Button style={{backgroundColor:"red", color:"black"}} startIcon={<SaveAltIcon/>} onClick={() => deleteEvent} >Delete :)</Button>
-                </Grid>
             </Grid>
         </div>
     )
