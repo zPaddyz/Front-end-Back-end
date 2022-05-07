@@ -1,23 +1,101 @@
-import {AppBar, Button, makeStyles, Toolbar, Typography} from "@mui/material";
-import Plannerino from "./Plannerino.png";
-import { Link } from 'react-router-dom';
+import {Button} from "@mui/material";
+import plus from "./plus.png";
+import React from "react";
+import ReactDOM from 'react-dom';
 import EventBox from "./EventBox";
+import Header from "./Header";
+
+let userEmail = "";
+
+async function welcomeText(){
+    let email;
+    const requestOptions = {
+        method: 'GET',
+        headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+        }
+    }
+    const welcome = await fetch('/welcome', requestOptions).then( (response) => {
+        console.log(response)
+        if (response.status === 202) {
+            return response.json()
+        } else {
+            alert("Something went wrong")
+        }
+    })
+
+    email = JSON.stringify(welcome.message).replaceAll("\"","")
+    //console.log(email)
+    document.getElementById("email").innerText = "Welcome " + email;
+    await getEvents(email)
+    return userEmail = email
+}
+
+async function addEvent(){
+    const Name = prompt("Please enter a name for your event", "Event");
+    //const Description = prompt("Please enter a description for your event","Description");
+    const Date = prompt("Please enter a date for your event","00/00/0000");
+    const requestOptions = {
+        method: 'POST',
+        headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+            "name": Name,
+            "description": "Enter your description by clicking on the pencil",
+            "email": userEmail,
+            "date": Date,
+            "color": "#F6EFDF"
+        })
+    }
+    await fetch('/event', requestOptions).then( (response) => {
+        console.log(response)
+        if (response.status === 200) {
+            window.location.replace("/home")
+            return response.json()
+        } else {
+            alert("Event could not be created")
+        }
+    })
+}
+
+async function getEvents(Email){
+    const requestOptions = {
+        method: 'POST',
+        headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+        }, body: JSON.stringify({
+            "email": Email
+        })
+    }
+    const event = await fetch('/event/get', requestOptions).then( (response) => {
+        console.log(response)
+        if (response.status === 200) {
+            return response.json()
+        } else {
+            alert("Events could not be received")
+        }
+    })
+
+    await event.forEach(element => {
+        //console.log(element.color + " Farven er ")
+        ReactDOM.render(EventBox(element.name,element.id,element.date,"city",element.color), document.getElementById("root").appendChild(document.createElement('div')));
+    })
+}
 
 const Home = () =>{
+    welcomeText()
     return(
-        <div style={{backgroundColor: "#F6EFDF"}}>
-            <AppBar position="static" style={{backgroundColor: "#F6EFDF"}}>
-                <Toolbar>
-                    <img src={Plannerino} alt={"bibo"} height={"40px"} width={"350px"} style={{padding: "20px 0px", marginTop: ""}}/>
-                    <div style={{backgroundColor: "#D5A13E", marginLeft: "1000px", padding: "", borderRadius: "5px"}}>
-                        <Link to="/" style={{textDecoration: "none"}}>
-                            <Button style={{color: "white"}}>log out</Button>
-                        </Link>
-                    </div>
-                </Toolbar>
-            </AppBar>
-            <EventBox get= "event" endpoint ="/apis"/>
-        <EventBox get= "test"endpoint ="/apitest"/>
+        <div>
+            <Header/>
+            <h2 style={{marginLeft: "50px"}} id="email"/>
+            <Button onClick={() => addEvent()} style={{backgroundColor: "#ffffff", marginLeft: "50px"}} >
+            <img src={plus}  height={"200px"} width={"200px"} alt={"Add Event"}/>
+            <p>Add new event</p>
+            </Button>
         </div>
     )
 }

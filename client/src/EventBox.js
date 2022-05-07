@@ -2,49 +2,37 @@ import React from "react";
 import "./EventBox.css";
 import Valley from "./Valley.jpg"
 import city from "./city.jpg"
-import { useState, useEffect, useRef } from "react";
+import {Paper} from "@mui/material";
 
-function EventBox(props){
-    const obj = useRef(0);
 
-    const fetchData = async () => {
-      const data = await fetch(props.endpoint)
-    .then(res => res.json())
-    .then(haha => obj.current = haha)
-    .then(console.log(obj.current))
-    .then(() => !localStorage.getItem(props.get) ? localStorage.setItem(props.get, JSON.stringify(obj.current)) : console.log("already exists"))
-  }
 
-  return fetchData(),displayItem(props.get)
-}   
-
-function displayItem(get){
-    const title = JSON.parse(localStorage.getItem(get)).title;
-    const date = JSON.parse(localStorage.getItem(get)).date;
-    const picture = JSON.parse(localStorage.getItem(get)).picture;
-    const color = JSON.parse(localStorage.getItem(get)).color;
+function EventBox(title = "No Title", id,date = "00/00/0000", picture ="null", color = "#F6EFDF"){
         return(
-            <div className="eventBoxes">
-                <button className="myButton" style={{backgroundColor: color}}>
-                <p className ="title">{title}</p>
-                <img id="test"/>
-                {
-                (picture === "Valley")? <img src={Valley} className="centerImage"/> : 
-                (picture === "city")? <img src={city} className="centerImage"/>:
-                <p className="centerImage2">*Intet billede*</p>
-                }
 
-                <p className = "date">{date}</p>
-                </button>
-            </div>
+
+                    <button className="myButton" /*style={{backgroundColor: /*color "#" + ((1<<24)*Math.random() | 0).toString(16)}}*/ onClick={() =>window.location.replace("/event/"+id)}>
+                        <Paper elevation={12} style={{backgroundColor: color}}>
+                            <ul style ={{listStyleType: "none", /* Remove bullets */
+                                    padding: 0, /* Remove padding */
+                                    margin: 0 /* Remove margins */}}>
+                                    <li>
+                                            <p className ="dada">{title}</p>
+                                    </li>
+                                    <li>
+                                            {
+                                            //<!--<img id="dada" alt={"picture"}/>-->
+                                                    (picture === "Valley")? <img alt = "pic" src={Valley} className="centerImage"/> :
+                                                        (picture === "city")? <img alt = "pic" src={city} className="centerImage"/>:
+                                                            <p className="centerImage2">*Intet billede*</p>
+                                            }
+                                    </li>
+                                    <li>
+                                            <p className = "dada">{date}</p>
+                                    </li>
+                            </ul>
+                        </Paper>
+                    </button>
         )
 }
 
-function picturePick(props){
-    document.getElementById("imageid").src="../template/save.png";
-    const Tpicture = props.picture;
-    if(Tpicture === "Valley") document.getElementById("test").src="./Valley.jpg";
-    else if(Tpicture === "city")document.getElementById("test").src="./city.jpg";
-    else return(<p className="centerImage">*Intet billede*</p>)
-}
 export default EventBox;

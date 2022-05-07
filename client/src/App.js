@@ -8,7 +8,6 @@ import Home from "./Home";
 import CApp from "./commentApp";
 import About from "./about/About";
 
-
 function App() {
   return (
   <Router>
@@ -25,6 +24,9 @@ function App() {
         </Route >
         <Route exact path="/comment">
           <CApp/>
+        </Route>
+        <Route exact path="/event/:id">
+          <Event/>
         </Route>
         <Route exact path="/about">
           <About/>

@@ -11,12 +11,12 @@
 }
 
 .myButton {
+    background-color: #ffffff;
     margin-left: 10px;
     margin-top: 10px;
     float: left;
-      background-color:#463b33;
-      border-radius:20px;
-      border:4px solid #727272;
+      border-radius:0;
+      border:0;
       cursor:pointer;
       color:#ffffff;
       font-family:Trebuchet MS;
@@ -28,9 +28,6 @@
     max-height: 230px;
   }
 
-  .myButton:hover {
-      background-color:#3d8a17;
-  }
 
   .myButton:active {
       position:relative;
