@@ -5,7 +5,7 @@ const Comment = ({comment, currentUserId, deleteComment}) => {
     return (
         <div className="comment">
             <div className="comment-image-container">
-               <img src="./icon.png" />
+               <img src="../about/icon.png" />
             </div>
             <div className="comment-right-part">
                 <div className="comment-content">

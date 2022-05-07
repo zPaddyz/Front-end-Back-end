@@ -4,6 +4,8 @@ const User = require("./models/User");
 
 const Event = require("./models/Events");
 
+const Comments = require("./models/Comments");
+
 const express = require("express");
 
 const sequelize = require("./config/db");
@@ -30,11 +32,28 @@ app.use(bodyParser.json());
 app.use(cookieParser())
 app.use(express.static(reactBuild));
 
+app.post("/comments/get", (req, res) => {
+  const eventID = req.body.eventid
+  Comments.findAll(({where: {eventId: eventID}})).then(r => res.status(202).json(r))
+  //Event.upsert()
+})
+
+app.put("/comments/add", (req, res) => {
+  let comment = {
+    //id : req.body.id,
+    content : req.body.content,
+    eventId : req.body.eventid
+    , userId : req.body.userID
+  }
+  const eventID = req.body.eventid
+  Event.update(Comments.create(comment), {where: {id: eventID}
+  }).then(r => res.status(202).json(r))
+  //Event.upsert()
+})
 
 app.get("/welcome", (req, res) => {
     // We can obtain the session token from the requests cookies, which come with every request
     const token = req.cookies.token
-
     // if the cookie is not set, return an unauthorized error
     if (!token) {
       return res.status(402).end()
@@ -55,7 +74,7 @@ app.get("/welcome", (req, res) => {
       // otherwise, return a bad request error
       return res.status(400).end()
     }
-  res.status(202).json({message :payload.email})
+  res.status(202).json({message :payload.email, username :payload.username})
 });
 
 app.post("/refresh", (req, res) => {
@@ -157,7 +176,7 @@ app.post("/users/get", async (req, res) => {
       if(await bcrypt.compare(password, findUser.password)) {
         // Create token
         const token = jwt.sign(
-            { user_id: findUser._id, email },
+            { user_id: findUser._id, email, username: findUser.userName },
             jwtKey,
             process.env.TOKEN_KEY,
             {
