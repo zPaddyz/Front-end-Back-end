@@ -10,9 +10,6 @@ import SaveAltIcon from "@mui/icons-material/SaveAlt";
 
 const Description = () => {
     const [isHidden, setIsHidden] = useState(true);
-    const [isHidden1, setIsHidden1] = useState(true);
-    const [isHidden2, setIsHidden2] = useState(true);
-    const [isHidden3, setIsHidden3] = useState(true);
     const [isLoading, setLoading] = useState(true);
     const {register, handleSubmit} = useForm()
     const [error, setError] = useState(null);
@@ -20,7 +17,6 @@ const Description = () => {
     const [name, setName] = useState();
     const [description, setDescription] = useState();
     const [date, setDate] = useState();
-    const [color, setColor] = useState();
     const params = useParams();
 
 
@@ -28,16 +24,14 @@ const Description = () => {
 
         const event = {
             name: data.name,
-            description: data.description,
-            date: data.date,
-            color: data.color
+            description: data.description
         }
         console.log(event);
 
         axios.put('/event/edit/' + params.id, event).then((res) => {
             setMessage(res.data.msg);
+            window.location.reload();
         })
-
     }
 
     const deleteEvent = () =>{
@@ -63,7 +57,6 @@ const Description = () => {
                 setName(data.name)
                 setDescription(data.description)
                 setDate(data.date)
-                setColor(data.color)
             })
             .catch(error => {
                 console.log("error fetching data: ", error)
@@ -76,60 +69,43 @@ const Description = () => {
 
     if (isLoading) return "Loading data........"
 
-    if (error) return "Fuck this shit"
+    if (error) return "Error..."
 
     return(
         <div>
-            <Grid container item alignItems="left" justifyContent="center" direction={'row'} style={{marginTop:"20px"}}>
-                <Grid item style={{marginRight:"10%"}}>
-                    <Button style={{backgroundColor:"white", color:"black", borderRadius:"5px"}} startIcon={<ArrowBackIcon/>}>Back</Button>
-                </Grid>
-                <p style={{paddingTop: "20px", color: "green"}}>{message}</p>
-                <form onSubmit={handleSubmit(OnSubmit)}>
-                    <Grid item alignItems="left">
-                        <Typography>Title<Button onClick={() => setIsHidden(!isHidden)} startIcon={<EditIcon/>} style={{color: "black", padding:"0", minHeight:"0", minWidth:"0", marginLeft:"10px"}}/></Typography>
+            <Grid container item alignItems="center" justifyContent="center" direction={'row'} style={{marginTop:""}}>
+                <form>
+                    <Grid item>
+                        <Button style={{position: 'absolute', left: 0,backgroundColor:"white", color:"black", borderRadius:"5px", marginLeft: "10px", marginTop:"10px"}} startIcon={<ArrowBackIcon/>}>Back</Button>
+                    </Grid>
+                    <Grid item>
+                        <Button style={{position: 'absolute', right: 0,backgroundColor:"#6BC4A2", color:"black", marginRight: "10px", marginTop:"10px"}} startIcon={<SaveAltIcon/>} type={"submit"}>Save changes</Button>
+                        <Button style={{position: 'absolute', right: 0,backgroundColor:"red", color:"black", marginRight: "10px" ,marginTop:"50px"}}>Delete :)</Button>
+                    </Grid>
+                    <p style={{paddingTop: "20px", color: "green"}}>Updated</p>
+                    <Grid item>
                         <TextField disabled={isHidden}
                                    defaultValue={name}
                                    style={{fontSize:30}}
                                    {...register("name")}/>
-                        <Typography>Date<Button onClick={() => setIsHidden1(!isHidden1)} startIcon={<EditIcon/>} style={{color: "black", padding:"0", minHeight:"0", minWidth:"0", marginLeft:"10px"}}/></Typography>
-                        <TextField disabled={isHidden1}
-                                   defaultValue={date}
-                                   style={{fontSize:20}}
-                                   {...register("date")}/>
-                        <Typography>Color<Button onClick={() => setIsHidden2(!isHidden2)} startIcon={<EditIcon/>} style={{color: "black", padding:"0", minHeight:"0", minWidth:"0", marginLeft:"10px"}}/></Typography>
-                        <TextField disabled={isHidden2}
-                                   defaultValue={color}
-                                   style={{fontSize:20}}
-                                   {...register("color")}
-                        />
+                        <Button onClick={() => setIsHidden(!isHidden)} startIcon={<EditIcon/>} style={{color: "black", padding:"0", minHeight:"0", minWidth:"0", marginLeft:"10px"}}/>
+                        <Typography>{date}</Typography>
                     </Grid>
                     <Grid item>
-                        <Typography>Description</Typography>
-                        <TextField style={{backgroundColor:"white", width:800, borderRadius:"10px"}}
+                        <TextField style={{backgroundColor:"white", width:800, borderRadius:"10px", marginLeft:"50px"}}
                                    variant="standard"
                                    defaultValue={description}
-                                   disabled={isHidden3}
+                                   disabled={isHidden}
+                                   {...register("description")}/>
                                    multiline
                                    inputProps={{maxLength:200}}
                                    InputProps={{disableUnderline: true }}
-                                   {...register("description")}
                                    rows={13}
                                    maxRows={13}/>
-                        <Button onClick={() => setIsHidden3(!isHidden3)} startIcon={<EditIcon/>} style={{color: "black", padding:"0", minHeight:"0", minWidth:"0", marginLeft:"10px"}}/>
-                    </Grid>
-                    <Grid item style={{marginLeft:"30%"}}>
-                        <Button style={{backgroundColor:"#6BC4A2", color:"black"}} startIcon={<SaveAltIcon/>} type={"submit"}>Save changes</Button>
+                        <Button onClick={() => setIsHidden(!isHidden)} startIcon={<EditIcon/>} style={{color: "black", padding:"0", minHeight:"0", minWidth:"0", marginLeft:"10px"}}/>
                     </Grid>
                 </form>
-                <Grid item style={{marginLeft:"30%"}}>
-                    <Button style={{backgroundColor:"red", color:"black"}} startIcon={<SaveAltIcon/>} onClick={() => deleteEvent} >Delete :)</Button>
-                </Grid>
             </Grid>
-            <br/>
-            <br/>
-            <br/>
-            <br/>
         </div>
     )
 }
