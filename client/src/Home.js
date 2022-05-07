@@ -8,7 +8,7 @@ import Header from "./Header";
 let userEmail = "";
 
 async function welcomeText(){
-    let email ="";
+    let email;
     const requestOptions = {
         method: 'GET',
         headers: {
@@ -26,7 +26,7 @@ async function welcomeText(){
     })
 
     email = JSON.stringify(welcome.message).replaceAll("\"","")
-    console.log(email)
+    //console.log(email)
     document.getElementById("email").innerText = "Welcome " + email;
     await getEvents(email)
     return userEmail = email
@@ -44,12 +44,13 @@ async function addEvent(){
         },
         body: JSON.stringify({
             "name": Name,
-            "description": "",
+            "description": "Enter your description by clicking on the pencil",
             "email": userEmail,
-            "date": Date
+            "date": Date,
+            "color": "#F6EFDF"
         })
     }
-    const event = await fetch('/event', requestOptions).then( (response) => {
+    await fetch('/event', requestOptions).then( (response) => {
         console.log(response)
         if (response.status === 200) {
             window.location.replace("/home")
@@ -80,7 +81,8 @@ async function getEvents(Email){
     })
 
     await event.forEach(element => {
-        ReactDOM.render(EventBox(element.name,element.id,element.date,"city"), document.getElementById("root").appendChild(document.createElement('div')));
+        //console.log(element.color + " Farven er ")
+        ReactDOM.render(EventBox(element.name,element.id,element.date,"city",element.color), document.getElementById("root").appendChild(document.createElement('div')));
     })
 }
 

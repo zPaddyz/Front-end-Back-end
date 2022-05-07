@@ -190,7 +190,8 @@ app.post('/event', (req, res) => {
     name: req.body.name,
     description: req.body.description,
     emails: req.body.email,
-    date: req.body.date
+    date: req.body.date,
+    color: "#F6EFDF"
     //userId: req.user.id
   }
   Event.create(event).then(event => res.json(event))
@@ -208,7 +209,9 @@ app.put('/event/edit/:id', (req, res) => {
   Event.findOne({where: {id: eventId}}).then((response) => {
     var event = {
       name : req.body.name,
-      description : req.body.description
+      description : req.body.description,
+      date : req.body.date,
+      color : req.body.color
     }
     Event.update(event, {where: {id: eventId}
     }).then(() => {

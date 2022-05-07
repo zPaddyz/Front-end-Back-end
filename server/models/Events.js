@@ -22,6 +22,10 @@ const Event = sequelize.define("event", {
     date: {
         type: Sequelize.STRING,
         allowNull: false
+    },
+    color: {
+        type: Sequelize.STRING,
+        allowNull: false
     }
 });
 
