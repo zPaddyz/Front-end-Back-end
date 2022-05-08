@@ -145,7 +145,7 @@ const Description = () => {
                             position: 'absolute',
                             left:"30%",
                             top: "25%"
-                        }}>Description<Button onClick={() => setIsHidden2(!isHidden2)} startIcon={<EditIcon/>}
+                        }}>Description<Button onClick={() => setIsHidden3(!isHidden3)} startIcon={<EditIcon/>}
                                                                 style={{color: "black", padding:"0", minHeight:"0", minWidth:"0", marginLeft:"    5px"}}/></Typography>
                         <TextField style={{backgroundColor:"white", width:800, borderRadius:"10px",
                             fontSize:20,
