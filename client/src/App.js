@@ -1,16 +1,49 @@
 import React from "react";
 import logo from "./logo.svg";
 import "./App.css";
-import Login from "./Login";
-import {BrowserRouter as Router, Route, Switch} from 'react-router-dom';
-import Register from "./Register";
-import Home from "./Home";
-import CApp from "./commentApp";
-import About from "./about/About";
+
+import {Container} from '@mui/material';
+import Modal from "./user/Modal";
+import {useState} from "react";
+import ModalContext from './ModalContext';
+import Navigation from './Navigation';
 
 
+/*
+<div className="App">
+         <h1>Hey, button</h1>
+         <button className="openModalBtn" onClick={() => {setOpenModal(true)}}>Open</button>
+         {openModal && <Modal closeModal={setOpenModal}/>}
+       </div>
+*/
 function App() {
+  
+  const [modalOpen, setModalOpen] = useState(false);
+
   return (
+    <Container maxWidth="lg" sx={{textAlign: 'center', mt: '3rem'}}> 
+    <ModalContext>
+      <Modal />
+      <Navigation />
+    </ModalContext>
+    
+      
+    </Container>
+  /*
+  <div className="App">
+      
+      <button
+        className="openModalBtn"
+        onClick={() => {
+          setModalOpen(true);
+        }}
+      >
+        Account Settings
+      </button>
+      {modalOpen && <Modal setOpenModal={setModalOpen} />}
+    </div>
+
+  
   <Router>
     <div className="App">
       <Switch>
@@ -29,9 +62,12 @@ function App() {
         <Route exact path="/about">
           <About/>
         </Route>
+        <Route exact path="/profile">
+          <Profile/>
+        </Route>
       </Switch>
     </div>
-  </Router>
+  </Router>*/
   );
 }
 
