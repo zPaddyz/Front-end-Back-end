@@ -91,7 +91,7 @@ const Home = () =>{
     return(
         <div>
             <Header/>
-            <h2 style={{textAlign: "center"}} id="email"/>
+            <h2 style={{textAlign: "center", fontFamily:"sans-serif"}} id="email"/>
             <Button onClick={() => addEvent()} style={{backgroundColor: "#ffffff", marginLeft: "50px"}} >
             <img src={plus}  height={"200px"} width={"200px"} alt={"Add Event"}/>
             </Button>
