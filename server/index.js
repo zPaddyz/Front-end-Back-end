@@ -33,10 +33,14 @@ app.use(cookieParser())
 app.use(express.static(reactBuild));
 
 app.post("/comments/get", (req, res) => {
-  const eventID = req.body.eventid
-  Comments.findAll(({where: {eventId: eventID}})).then(r => res.status(202).json(r))
-  //Event.upsert()
+  Comments.findAll({
+    include: [{
+      model: User,
+      attributes: {exclude: ["password"]}
+    }]
+  }).then(r => res.status(202).json(r));
 })
+
 
 app.put("/comments/add", (req, res) => {
   const userID = req.body.userID

@@ -103,7 +103,7 @@ const Comments =  () => {
         console.log(comments)
 
         await comments.forEach(element => {
-            ReactDOM.render(Comment(element, null, element.userID), document.getElementById("comments-container").appendChild(document.createElement('div')));
+            ReactDOM.render(Comment(element,element.user.userName, null, element.userID), document.getElementById("comments-container").appendChild(document.createElement('div')));
         })
         return comments
     }
