@@ -18,7 +18,6 @@ import Navigation from './Navigation';
 */
 function App() {
   
-  const [modalOpen, setModalOpen] = useState(false);
 
   return (
     <Container maxWidth="lg" sx={{textAlign: 'center', mt: '3rem'}}> 
