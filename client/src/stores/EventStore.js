@@ -7,7 +7,7 @@ export default class EventStore {
     }
 
     async getEvent(eventId){
-        return await axios.get('event/get/' + eventId)
+        return await axios.get('/event/get/' + eventId)
     }
 
     async editEvent(eventId, event){

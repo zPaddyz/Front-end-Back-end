@@ -78,7 +78,6 @@ const Countdown = ()=>{
         rootStore.EventStore.getEvent(params.id)
             .then(response => {
                 updateCountDown(JSON.stringify(response.data.date))
-
             })
             .catch(error => {
                 console.log("error fetching data: ", error)
