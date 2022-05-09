@@ -10,8 +10,10 @@ import Valley from "./images/Valley.jpg";
 import city from "./images/city.jpg";
 import React from "react";
 import ModalContext from "./ModalContext";
-import Modal from "./user/Modal";
+
 import Navigation from "./Navigation";
+import {useCon} from './ModalContext'
+import ASettings from './user/Settings'
 
 function logOut(){
     document.cookie = "token=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/";
@@ -26,10 +28,9 @@ function checkForToken(){
 
 const Header = () => {
     checkForToken()
+    const {setModal} = useCon();
 
     return (
-        <ModalContext>
-
         <div /*style={{backgroundColor: "#F6EFDF"}}*/>
             <AppBar /*elevation={0}*/ position="static" style={{backgroundColor: "#F6EFDF"}}>
                 <Toolbar>
@@ -43,8 +44,11 @@ const Header = () => {
                             <Button onClick={() => window.location.replace("/about")} startIcon={<InfoIcon/>} label="About" variant="standard" style={{color: "black", textTransform: 'capitalize', marginTop:"15px"}}>About</Button>
                         </Grid>
                         <Grid item>
-                            <Button startIcon={<PersonIcon/>} variant="standard" style={{color: "black", textTransform: 'capitalize',  marginTop:"15px"}}>Profile<Modal />
-                                <Navigation /></Button>
+                            <Button onClick={() => setModal({isOpen:true, title: 'Account Settings', 
+        content: <ASettings />
+        })
+    } startIcon={<PersonIcon/>} variant="standard" style={{color: "black", textTransform: 'capitalize',  marginTop:"15px"}}>Profile
+                                </Button>
                         </Grid>
                         <Grid item>
                             {
@@ -63,7 +67,6 @@ const Header = () => {
                 <Divider variant={"middle"} style={{backgroundColor:"#6BC4A2"}}/>
             </AppBar>
         </div>
-        </ModalContext>
     )
 }
 

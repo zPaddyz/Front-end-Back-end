@@ -7,10 +7,14 @@ import Register from "./Register";
 import Home from "./Home";
 import About from "./about/About";
 import Event from "./Event/Event";
+import ModalContext from './ModalContext';
+import Modal from "./user/Modal";
 
 
 function App() {
   return (
+    <ModalContext>
+      <Modal />
       <Router>
         <div className="App">
           <Switch>
@@ -32,6 +36,7 @@ function App() {
           </Switch>
         </div>
       </Router>
+      </ModalContext>
   );
 }
 
