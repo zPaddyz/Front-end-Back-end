@@ -1,4 +1,4 @@
-const Comment = ({comment, currentUserId, deleteComment}) => {
+const Comment = (comment, deleteComment, currentUserId) => {
     const canEditComment = currentUserId === comment.userId;
     const canDeleteComment = currentUserId === comment.userId;
 
@@ -10,9 +10,9 @@ const Comment = ({comment, currentUserId, deleteComment}) => {
             <div className="comment-right-part">
                 <div className="comment-content">
                     <div className="comment-authour">{comment.username}</div>
-                    <div>{comment.createdAt}</div>
+                    <div>{comment.createdAt.slice(0,comment.createdAt.length-5).replace("T"," ")}</div>
                 </div>
-                <div className="comment-text">{comment.body}</div>
+                <div className="comment-text">{comment.content}</div>
                 <div className="comment-actions">
                     {canEditComment && <div className="comment-action">Edit</div>}
                     {canDeleteComment && <div className="comment-action" onClick={() => deleteComment(comment.id)}>Delete</div>}

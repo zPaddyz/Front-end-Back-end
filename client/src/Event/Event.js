@@ -1,5 +1,6 @@
 import Header from "../Header";
 import Description from "./Description";
+import Comments from "../Comments";
 
 const Event = () => {
 
@@ -8,6 +9,7 @@ const Event = () => {
             <Header/>
             <div style={{backgroundColor: "#f6efdf"}}>
                 <Description/>
+                <Comments/>
             </div>
         </div>
     )

@@ -28,6 +28,7 @@
   .comment {
     display: flex;
     margin-bottom: 24px;
+    background-color: #f6efdf;
   }
 
   .comment-form-button:hover:enabled {

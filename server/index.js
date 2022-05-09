@@ -39,13 +39,14 @@ app.post("/comments/get", (req, res) => {
 })
 
 app.put("/comments/add", (req, res) => {
+  const userID = req.body.userID
+  const eventID = req.body.eventid
   let comment = {
     //id : req.body.id,
     content : req.body.content,
     eventId : req.body.eventid
-    , userId : req.body.userID
+    , userId : userID
   }
-  const eventID = req.body.eventid
   Event.update(Comments.create(comment), {where: {id: eventID}
   }).then(r => res.status(202).json(r))
   //Event.upsert()
@@ -74,7 +75,7 @@ app.get("/welcome", (req, res) => {
       // otherwise, return a bad request error
       return res.status(400).end()
     }
-  res.status(202).json({message :payload.email, username :payload.username})
+  res.status(202).json({message :payload.email, username :payload.username, user_id:payload.user_id})
 });
 
 app.post("/refresh", (req, res) => {
@@ -176,7 +177,7 @@ app.post("/users/get", async (req, res) => {
       if(await bcrypt.compare(password, findUser.password)) {
         // Create token
         const token = jwt.sign(
-            { user_id: findUser._id, email, username: findUser.userName },
+            { user_id: findUser.id, email, username: findUser.userName },
             jwtKey,
             process.env.TOKEN_KEY,
             {
