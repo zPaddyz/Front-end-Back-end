@@ -8,6 +8,7 @@ import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import SaveAltIcon from "@mui/icons-material/SaveAlt";
 import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
 import Countdown from "../Countdown";
+import rootStore from "../stores/RootStore"
 
 const Description = () => {
     const [isHidden, setIsHidden] = useState(true);
@@ -35,14 +36,14 @@ const Description = () => {
         }
         console.log(event);
 
-        axios.put('/event/edit/' + params.id, event).then((res) => {
+        rootStore.EventStore.editEvent(params.id, event).then((res) => {
             setMessage(res.data.msg);
             //window.location.reload();
         })
     }
 
     const deleteEvent = () =>{
-        axios.delete('/event/delete/' + params.id).then((res) => {
+        rootStore.EventStore.delete(params.id).then((res) => {
             setMessage(res.data.msg);
             window.location.replace("/home");
         })
@@ -51,22 +52,13 @@ const Description = () => {
 
 
 
-    useEffect(async () => {
-        await fetch('/event/get/' + params.id)
-            .then( response => {
-                if (response.ok){
-                    console.log(response)
-                    return response.json();
-                }
-                throw response;
-            })
-            .then(data => {
-                setName(data.name)
-                setDescription(data.description)
-                setDate(data.date)
-                setColor(data.color)
-
-
+    useEffect(() => {
+        rootStore.EventStore.getEvent(params.id)
+            .then(response => {
+                setName(response.data.name)
+                setDescription(response.data.description)
+                setDate(response.data.date)
+                setColor(response.data.color)
             })
             .catch(error => {
                 console.log("error fetching data: ", error)
