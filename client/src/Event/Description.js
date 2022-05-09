@@ -43,7 +43,7 @@ const Description = () => {
     }
 
     const deleteEvent = () =>{
-        rootStore.EventStore.delete(params.id).then((res) => {
+        rootStore.EventStore.deleteEvent(params.id).then((res) => {
             setMessage(res.data.msg);
             window.location.replace("/home");
         })
