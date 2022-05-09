@@ -1,6 +1,7 @@
 import React, {useEffect, useState} from "react";
 import {useParams} from "react-router-dom";
 import {makeStyles} from "@mui/styles";
+import rootStore from "./stores/RootStore"
 
 const useStyles = makeStyles({
     card: {
@@ -73,16 +74,10 @@ const Countdown = ()=>{
         setDaysLeft(getDifferenceInDays(dbSetTime,currentTime()))
     }
 
-    useEffect(async () => {
-        await fetch('/event/get/' + params.id)
-            .then( response => {
-                if (response.ok){
-                    return response.json();
-                }
-                throw response;
-            })
-            .then(data => {
-                updateCountDown(JSON.stringify(data.date))
+    useEffect(() => {
+        rootStore.EventStore.getEvent(params.id)
+            .then(response => {
+                updateCountDown(JSON.stringify(response.data.date))
 
             })
             .catch(error => {
