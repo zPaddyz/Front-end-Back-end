@@ -12,6 +12,7 @@ import Countdown from "../Countdown";
 import rootStore from "../stores/RootStore"
 
 const Description = () => {
+
     const [isHidden, setIsHidden] = useState(true);
     const [isHidden1, setIsHidden1] = useState(true);
     const [isHidden2, setIsHidden2] = useState(true);
