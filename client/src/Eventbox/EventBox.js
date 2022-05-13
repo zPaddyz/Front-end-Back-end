@@ -8,8 +8,6 @@ import {Paper} from "@mui/material";
 
 function EventBox(title = "No Title", id,date = "00/00/0000", picture ="null", color = "#F6EFDF"){
         return(
-
-
                     <button className="myButton" /*style={{backgroundColor: /*color "#" + ((1<<24)*Math.random() | 0).toString(16)}}*/ onClick={() =>window.location.replace("/event/"+id)}>
                         <Paper elevation={12} style={{backgroundColor: color}}>
                             <ul style ={{listStyleType: "none", /* Remove bullets */

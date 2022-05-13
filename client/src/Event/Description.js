@@ -1,4 +1,5 @@
 import {Button, Grid, TextField, Typography} from "@mui/material";
+import {observer} from "mobx-react";
 import EditIcon from "@mui/icons-material/Edit";
 import {useEffect, useState} from "react";
 import {useParams} from "react-router-dom";
@@ -17,7 +18,7 @@ const Description = () => {
     const [isHidden3, setIsHidden3] = useState(true);
     const [isLoading, setLoading] = useState(true);
     const {register, handleSubmit} = useForm()
-    const [error, setError] = useState(null);
+    const [error, setError] = useState();
     const [message, setMessage] = useState("")
     const [name, setName] = useState();
     const [description, setDescription] = useState();
@@ -49,8 +50,6 @@ const Description = () => {
         })
 
     }
-
-
 
     useEffect(() => {
         rootStore.EventStore.getEvent(params.id)
@@ -170,4 +169,4 @@ const Description = () => {
     )
 }
 
-export default Description;
+export default observer(Description);

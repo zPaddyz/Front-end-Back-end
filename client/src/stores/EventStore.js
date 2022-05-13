@@ -2,6 +2,7 @@ import {makeAutoObservable} from "mobx";
 import axios from "axios";
 
 export default class EventStore {
+
     constructor() {
         makeAutoObservable(this)
     }

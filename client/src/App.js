@@ -9,6 +9,7 @@ import About from "./about/About";
 import Event from "./Event/Event";
 import ModalContext from './ModalContext';
 import Modal from "./user/Modal";
+import rootStore from "./stores/RootStore";
 
 
 function App() {
@@ -30,8 +31,8 @@ function App() {
             <Route exact path="/about">
               <About/>
             </Route>
-            <Route exact path="/event/:id">
-              <Event/>
+            <Route exact path="/event/:id" >
+              <Event store={rootStore}/>
             </Route>
           </Switch>
         </div>

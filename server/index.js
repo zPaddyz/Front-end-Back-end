@@ -82,7 +82,7 @@ app.get("/welcome", (req, res) => {
       // otherwise, return a bad request error
       return res.status(400).end()
     }
-  res.status(202).json({message :payload.email, username :payload.username, user_id:payload.user_id})
+  res.status(202).json({message: payload.email, username :payload.username, user_id:payload.user_id})
 });
 
 app.post("/refresh", (req, res) => {

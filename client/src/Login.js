@@ -112,7 +112,7 @@ const Login = () => {
                 <img src={Plannerino} alt={"bibo"} className="imageStyle" />
                 <Grid>
                     <Grid item xs={12}>
-                        <TextField id="1" label="Email" variant="standard" />
+                        <TextField id="1" label="Email" variant="standard"/>
                     </Grid>
                     <Grid item xs={12}>
                         <TextField id="2" label="Password" type="password" variant="standard" style={{ marginTop: "10px" }} />
