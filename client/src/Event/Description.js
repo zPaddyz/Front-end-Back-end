@@ -163,7 +163,6 @@ const Description = (props) => {
                                    rows={13}
                                    maxRows={13}/>
                     </Grid>
-
                 </form>
             </Grid>
         </div>
