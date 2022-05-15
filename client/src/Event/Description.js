@@ -11,7 +11,7 @@ import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
 import Countdown from "../Countdown";
 import rootStore from "../stores/RootStore"
 
-const Description = () => {
+const Description = (props) => {
 
     const [isHidden, setIsHidden] = useState(true);
     const [isHidden1, setIsHidden1] = useState(true);

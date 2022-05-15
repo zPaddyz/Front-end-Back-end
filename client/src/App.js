@@ -32,7 +32,7 @@ function App() {
               <About/>
             </Route>
             <Route exact path="/event/:id" >
-              <Event store={rootStore}/>
+              <Event/>
             </Route>
           </Switch>
         </div>
