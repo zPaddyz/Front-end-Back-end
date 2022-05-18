@@ -110,7 +110,8 @@ const Comments =  () => {
     }
 
     useEffect(async () => {
-        await getComments(window.location.href.replace("http://localhost/event/",""))
+        let eventID = window.location.href;
+        await getComments(eventID.slice(eventID.length - 36))
         //setBackendComments(await comments);
         /*getCommentsApi().then((data) => {
             setBackendComments(data);
