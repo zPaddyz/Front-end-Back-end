@@ -42,14 +42,15 @@ const Comments =  () => {
     const addComment = async (text, parentId) => {
 
         let username
-
+        let eventID = window.location.href;
         const requestOptions = {
             method: 'PUT',
             headers: {
                 'Accept': 'application/json',
                 'Content-Type': 'application/json'
             }, body: JSON.stringify({
-                "eventid": window.location.href.replace("http://localhost/event/",""),
+                //"eventid": window.location.href.replace("http://localhost/event/",""),
+                "eventid": eventID.slice(eventID.length - 36),
                 "content": document.getElementById("comment-form-textarea").textContent,
                 "userID": await getUser("id")
             }),

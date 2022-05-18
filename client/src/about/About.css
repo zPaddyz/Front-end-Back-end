@@ -60,7 +60,7 @@ p {
     font-size: 16px;
     line-height: 1.5;
 }
-body .page_about .grid .grid-item.content.image.image-1{
+body .page_about .grid .grid-item.content-image.image-1{
     background-image: url("../images/city.jpg");
 }
 body .page_about .grid .grid-item.content-image{
